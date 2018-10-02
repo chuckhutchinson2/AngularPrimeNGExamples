@@ -9,6 +9,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 
 import { AppComponent } from './app.component';
 
@@ -27,7 +28,8 @@ import { AppComponent } from './app.component';
     TabViewModule,
     ChartModule,
     SidebarModule,
-    ButtonModule
+    ButtonModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

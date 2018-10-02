@@ -13,6 +13,7 @@ export class AppComponent {
   visibleSidebar4;
   visibleSidebar5;
 
+  value: Date;
   data: any;
   linedata: any;
   bardata: any;
