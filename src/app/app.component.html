@@ -18,7 +18,17 @@
 				</p-tabView>
 		    </p-accordionTab>
 		    <p-accordionTab header="Charts">
-		    	<p-chart type="doughnut" [data]="data"></p-chart>
+		    		<p-tabView>
+				    	<p-tabPanel header="Doughnut" leftIcon="pi pi-calendar">
+		    				<p-chart type="doughnut" [data]="data"></p-chart>
+		    			</p-tabPanel>
+				    	<p-tabPanel header="Line" leftIcon="pi pi-calendar">
+		    				<p-chart type="line" [data]="linedata" (onDataSelect)="selectData($event)"></p-chart>
+		    			</p-tabPanel>
+				    	<p-tabPanel header="Bar" leftIcon="pi pi-calendar">
+		    				<p-chart type="bar" [data]="bardata"></p-chart>
+		    			</p-tabPanel>		    			
+		    		</p-tabView>
 		    </p-accordionTab>
 		    <p-accordionTab header="Godfather III">
 		        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
