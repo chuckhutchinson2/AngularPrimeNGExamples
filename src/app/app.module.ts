@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AccordionModule } from 'primeng/accordion';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
+import { TabViewModule } from 'primeng/tabview';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -18,7 +20,8 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     AccordionModule,
     HttpClientModule,
-    PanelModule
+    PanelModule,
+    TabViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]
