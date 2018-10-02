@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';
 import { ChartModule } from 'primeng/chart';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
 
 import { AppComponent } from './app.component';
 
@@ -23,7 +25,9 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     PanelModule,
     TabViewModule,
-    ChartModule
+    ChartModule,
+    SidebarModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

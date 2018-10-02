@@ -7,11 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AngularPrimeNGExamples';
+  visibleSidebar1;
+  visibleSidebar2;
+  visibleSidebar3;
+  visibleSidebar4;
+  visibleSidebar5;
 
   data: any;
   linedata: any;
   bardata: any;
-  
+  piedata: any;
+
   constructor() {
     this.data = {
         labels: ['A','B','C'],
@@ -66,5 +72,23 @@ export class AppComponent {
                 }
             ]
         };
+
+      this.piedata = {
+            labels: ['A','B','C'],
+            datasets: [
+                {
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                }]    
+            };
     }
 }
