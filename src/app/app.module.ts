@@ -6,6 +6,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';
+import { ChartModule } from 'primeng/chart';
 
 import { AppComponent } from './app.component';
 
@@ -21,7 +22,8 @@ import { AppComponent } from './app.component';
     AccordionModule,
     HttpClientModule,
     PanelModule,
-    TabViewModule
+    TabViewModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
