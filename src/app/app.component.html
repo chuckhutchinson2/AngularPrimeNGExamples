@@ -56,16 +56,37 @@
 		    <p-accordionTab header="Charts">
 		    		<p-tabView>
 				    	<p-tabPanel header="Doughnut" leftIcon="pi pi-calendar">
-		    				<p-chart type="doughnut" [data]="data"></p-chart>
+		    				<p-chart type="doughnut" [data]="data">
+
+							</p-chart>
 		    			</p-tabPanel>
+		    			<div #linechart>
+	    					<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+							    Content
+							</p-overlayPanel>
+		    			</div>
 				    	<p-tabPanel header="Line" leftIcon="pi pi-calendar">
-		    				<p-chart type="line" [data]="linedata" (onDataSelect)="selectData($event)"></p-chart>
+		    				<p-chart  type="line" [data]="linedata" (onDataSelect)="op.toggle($event)">
+
+		    				</p-chart>
 		    			</p-tabPanel>
+		    			<div #barchart>
+	    					<p-overlayPanel #op1 [dismissable]="true" [showCloseIcon]="true">
+							    Content
+							</p-overlayPanel>
+		    			</div>
 				    	<p-tabPanel header="Bar" leftIcon="pi pi-calendar">
-		    				<p-chart type="bar" [data]="bardata"></p-chart>
-		    			</p-tabPanel>		    			
-				    	<p-tabPanel header="Pie" leftIcon="pi pi-calendar">
-		    				<p-chart type="pie" [data]="piedata"></p-chart>
+		    				<p-chart type="bar" [data]="bardata" (onDataSelect)="op1.toggle($event)">		    					
+							</p-chart>
+		    			</p-tabPanel>		 
+		    			<div #piechart>
+	    					<p-overlayPanel #op2 [dismissable]="true" [showCloseIcon]="true">
+							    Content
+							</p-overlayPanel>
+		    			</div>		    			   			
+				    	<p-tabPanel header="Pie" leftIcon="pi pi-calendar" >
+		    				<p-chart type="pie" [data]="piedata" (onDataSelect)="op2.toggle($event)">		    			
+							</p-chart>
 		    			</p-tabPanel>		
 		    		</p-tabView>
 		    </p-accordionTab>

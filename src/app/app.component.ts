@@ -75,10 +75,10 @@ export class AppComponent {
         };
 
       this.piedata = {
-            labels: ['A','B','C'],
+            labels: ['Stocks','Bonds','Cash'],
             datasets: [
                 {
-                    data: [300, 50, 100],
+                    data: [500, 50, 100],
                     backgroundColor: [
                         "#FF6384",
                         "#36A2EB",

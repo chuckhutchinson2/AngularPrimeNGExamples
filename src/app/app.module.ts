@@ -10,6 +10,7 @@ import { ChartModule } from 'primeng/chart';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 import { AppComponent } from './app.component';
 
@@ -29,7 +30,8 @@ import { AppComponent } from './app.component';
     ChartModule,
     SidebarModule,
     ButtonModule,
-    CalendarModule
+    CalendarModule,
+    OverlayPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
