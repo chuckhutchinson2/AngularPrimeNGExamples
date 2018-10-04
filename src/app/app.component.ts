@@ -28,21 +28,21 @@ export class AppComponent {
 
   constructor() {
     var months = [];
+    var daysInMonth = [];
+    var colors = ['red','blue','green','yellow','purple','lightblue','teal','lime','yellowgreen', 'orange', 'sienna','firebrick']
 
     for (var i = 0; i < 12; i++) {
-      months.push(moment().month(i).format('MMMM'));
+      var month = moment().month(i);
+      months.push(month.format('MMMM'));
+      daysInMonth.push(month.daysInMonth());
     }
 
     this.data = {
-        labels: ['A','B','C'],
+        labels: months,
         datasets: [
             {
-                data: [300, 50, 100],
-                backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56"
-                ],
+                data: daysInMonth,
+                backgroundColor: colors,
                 hoverBackgroundColor: [
                     "#FF6384",
                     "#36A2EB",
@@ -55,8 +55,8 @@ export class AppComponent {
             labels: months,
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    label: 'Days in Month',
+                    data: daysInMonth,
                     fill: false,
                     borderColor: '#4bc0c0'
                 },
@@ -73,10 +73,10 @@ export class AppComponent {
             labels: months,
             datasets: [
                 {
-                    label: 'My First dataset',
+                    label: 'Days in Month',
                     backgroundColor: '#42A5F5',
                     borderColor: '#1E88E5',
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: daysInMonth
                 },
                 {
                     label: 'My Second dataset',
