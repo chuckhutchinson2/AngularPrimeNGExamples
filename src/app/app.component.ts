@@ -160,10 +160,6 @@ export class AppComponent implements OnInit {
           }
       }
 
-      console.log(lat);
-      console.log(lng);
-
-
       var position = {lat: lat, lng: lng};
 
       this.mapoptions = {
@@ -175,10 +171,25 @@ export class AppComponent implements OnInit {
 
       var overlayTitle = ipInfo.city +', '+ ipInfo.region;
 
+      var content = '<div><table><tr><td>Location</td><td>' + 
+      ipInfo.city + ', ' + 
+      ipInfo.region + ', ' + 
+      ipInfo.country + 
+      '</td></tr><tr><td>Zip</td><td>' + 
+      ipInfo.postal + 
+      '</td></tr><tr><td>Host</td><td>' + 
+      ipInfo.hostname + 
+      '</td></tr><tr><td>IP Address</td><td>' + 
+      ipInfo.ip + 
+      '</td></tr><tr><td>Org</td><td>' + 
+      ipInfo.org + 
+      '</td></tr></table>';
+
       this.overlays.push(new google.maps.Marker({
         position: position, 
         title: overlayTitle, 
-        map: this.map
+        map: this.map,
+        userData: content
         }));
     }
 
@@ -189,7 +200,7 @@ export class AppComponent implements OnInit {
         let isMarker = event.overlay.getTitle != undefined;
 
         if(isMarker) {
-            let title = event.overlay.getTitle();
+            let title = event.overlay.userData;
 
             var contentString = '<div>' + title + '</div>';
 
