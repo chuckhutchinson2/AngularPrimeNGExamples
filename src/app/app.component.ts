@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
   ipinfo: IpAddressData;
   map: any;
   overlays: any[];
+  infoWindow: any;
 
   constructor(private getIPAddressService: GetIPAddressService) {
     var months = [];
@@ -172,13 +173,45 @@ export class AppComponent implements OnInit {
 
       this.map.setCenter(position);
 
-      this.overlays.push(new google.maps.Marker({position: position, title: 'Rockville', map: this.map}));
+      var overlayTitle = ipInfo.city +', '+ ipInfo.region;
 
+      this.overlays.push(new google.maps.Marker({
+        position: position, 
+        title: overlayTitle, 
+        map: this.map
+        }));
+    }
+
+    handleMapClick(event) {
+    }
+
+    handleOverlayClick(event) {
+        let isMarker = event.overlay.getTitle != undefined;
+
+        if(isMarker) {
+            let title = event.overlay.getTitle();
+
+            var contentString = '<div>' + title + '</div>';
+
+            this.infoWindow.setContent('' + contentString + '');
+
+            this.infoWindow.open(event.map, event.overlay);
+            event.map.setCenter(event.overlay.getPosition());
+        }
     }
 
     setMap(event) {
         this.map = event.map;
+        this.infoWindow = new google.maps.InfoWindow();
         this.getIPAddressService.find().subscribe(ipInfo => this.process(ipInfo));
+    }
+
+    zoomIn(map) {
+        map.setZoom(map.getZoom()+1);
+    }
+
+    zoomOut(map) {
+        map.setZoom(map.getZoom()-1);
     }
 
     ngOnInit() {
