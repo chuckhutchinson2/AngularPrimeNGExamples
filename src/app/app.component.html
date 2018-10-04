@@ -66,7 +66,7 @@
 							</p-overlayPanel>
 		    			</div>
 				    	<p-tabPanel header="Line" leftIcon="pi pi-calendar">
-		    				<p-chart  type="line" [data]="linedata" (onDataSelect)="op.toggle($event)">
+		    				<p-chart  type="line" [data]="linedata" (onDataSelect)="onDataSelect($event)" [options]="options">
 
 		    				</p-chart>
 		    			</p-tabPanel>
@@ -76,16 +76,25 @@
 							</p-overlayPanel>
 		    			</div>
 				    	<p-tabPanel header="Bar" leftIcon="pi pi-calendar">
-		    				<p-chart type="bar" [data]="bardata" (onDataSelect)="op1.toggle($event)">		    					
+		    				<p-chart type="bar" [data]="bardata" (onDataSelect)="onDataSelect($event)" [options]="options">		    		
 							</p-chart>
-		    			</p-tabPanel>		 
+		    			</p-tabPanel>	
+		    			<p-tabPanel header="Horizontal Bar" leftIcon="pi pi-calendar">
+		    				<p-chart type="horizontalBar" [data]="bardata" (onDataSelect)="onDataSelect($event)" [options]="options">		    					
+							</p-chart>
+		    			</p-tabPanel>	
+		    			<p-tabPanel header="Radar" leftIcon="pi pi-calendar">
+		    				<p-chart type="radar" [data]="bardata" (onDataSelect)="onDataSelect($event)" [options]="options">		    					
+							</p-chart>
+		    			</p-tabPanel>	
+
 		    			<div #piechart>
 	    					<p-overlayPanel #op2 [dismissable]="true" [showCloseIcon]="true">
 							    Content
 							</p-overlayPanel>
 		    			</div>		    			   			
 				    	<p-tabPanel header="Pie" leftIcon="pi pi-calendar" >
-		    				<p-chart type="pie" [data]="piedata" (onDataSelect)="op2.toggle($event)">		    			
+		    				<p-chart type="pie" [data]="piedata" (onDataSelect)="onDataSelect($event)" [options]="options">		    			
 							</p-chart>
 		    			</p-tabPanel>		
 		    		</p-tabView>

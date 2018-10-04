@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import * as moment from 'moment';
+
+
+// https://momentjs.com/docs/
+// https://www.chartjs.org/docs/latest/charts/bar.html
 
 @Component({
   selector: 'app-root',
@@ -18,8 +23,16 @@ export class AppComponent {
   linedata: any;
   bardata: any;
   piedata: any;
+  options: any;
+  polardata: any;
 
   constructor() {
+    var months = [];
+
+    for (var i = 0; i < 12; i++) {
+      months.push(moment().month(i).format('MMMM'));
+    }
+
     this.data = {
         labels: ['A','B','C'],
         datasets: [
@@ -39,7 +52,7 @@ export class AppComponent {
         };
 
       this.linedata = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: months,
             datasets: [
                 {
                     label: 'First Dataset',
@@ -57,7 +70,7 @@ export class AppComponent {
         };
 
       this.bardata = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: months,
             datasets: [
                 {
                     label: 'My First dataset',
@@ -78,7 +91,22 @@ export class AppComponent {
             labels: ['Stocks','Bonds','Cash'],
             datasets: [
                 {
+                    label: 'My First dataset',
                     data: [500, 50, 100],
+                    customdata:  [
+                      {
+                        label: 'Some Label',
+                        value: 1
+                      },
+                      {
+                        label: 'Some Label 2',
+                        value: 2
+                      },
+                      {
+                        label: 'Some Label 3',
+                        value: 3
+                      }
+                    ],
                     backgroundColor: [
                         "#FF6384",
                         "#36A2EB",
@@ -91,5 +119,56 @@ export class AppComponent {
                     ]
                 }]    
             };
+
+      this.polardata = {
+            labels: ['Stocks','Bonds','Cash'],
+            datasets: [
+                {
+                    label: 'My First dataset',
+                    data: [500, 50, 100],
+                    customdata:  [
+                      {
+                        label: 'Some Label',
+                        value: 1
+                      },
+                      {
+                        label: 'Some Label 2',
+                        value: 2
+                      },
+                      {
+                        label: 'Some Label 3',
+                        value: 3
+                      }
+                    ],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                }]    
+            };
+
+      this.options = {
+            title: {
+                display: true,
+                text: 'Chart Title',
+                fontSize: 16
+            },
+            legend: {
+                position: 'bottom'
+            }
+        };
     }
+
+    onDataSelect(event) {
+
+        console.log('onDataSelect event is -> ', event);
+        // console.log(event.dataset);
+
+      }
 }

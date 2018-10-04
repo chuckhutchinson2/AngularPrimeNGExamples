@@ -11,6 +11,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { AppComponent } from './app.component';
 
@@ -31,7 +32,8 @@ import { AppComponent } from './app.component';
     SidebarModule,
     ButtonModule,
     CalendarModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
