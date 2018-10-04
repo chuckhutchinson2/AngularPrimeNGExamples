@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 
 // https://momentjs.com/docs/
 // https://www.chartjs.org/docs/latest/charts/bar.html
+// https://www.primefaces.org/primeng/#/
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'AngularPrimeNGExamples';
   visibleSidebar1;
   visibleSidebar2;
@@ -24,17 +25,22 @@ export class AppComponent {
   bardata: any;
   piedata: any;
   options: any;
-  polardata: any;
+  mapoptions: any;
+  images: any[];
 
   constructor() {
     var months = [];
     var daysInMonth = [];
-    var colors = ['red','blue','green','yellow','purple','lightblue','teal','lime','yellowgreen', 'orange', 'sienna','firebrick']
+    var randomData = [];
+
+    var colors = ['red','blue','green','yellow','purple','lightblue','teal','lime','yellowgreen', 'orange', 'sienna','firebrick'];
 
     for (var i = 0; i < 12; i++) {
       var month = moment().month(i);
+      var days = month.daysInMonth();
       months.push(month.format('MMMM'));
-      daysInMonth.push(month.daysInMonth());
+      daysInMonth.push(days);
+      randomData.push(Math.floor((Math.random() * days) + 1));
     }
 
     this.data = {
@@ -61,8 +67,8 @@ export class AppComponent {
                     borderColor: '#4bc0c0'
                 },
                 {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    label: 'Random Dataset',
+                    data: randomData,
                     fill: false,
                     borderColor: '#565656'
                 }
@@ -79,48 +85,15 @@ export class AppComponent {
                     data: daysInMonth
                 },
                 {
-                    label: 'My Second dataset',
+                    label: 'Random dataset',
                     backgroundColor: '#9CCC65',
                     borderColor: '#7CB342',
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    data: randomData
                 }
             ]
         };
 
       this.piedata = {
-            labels: ['Stocks','Bonds','Cash'],
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    data: [500, 50, 100],
-                    customdata:  [
-                      {
-                        label: 'Some Label',
-                        value: 1
-                      },
-                      {
-                        label: 'Some Label 2',
-                        value: 2
-                      },
-                      {
-                        label: 'Some Label 3',
-                        value: 3
-                      }
-                    ],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ]
-                }]    
-            };
-
-      this.polardata = {
             labels: ['Stocks','Bonds','Cash'],
             datasets: [
                 {
@@ -163,6 +136,19 @@ export class AppComponent {
                 position: 'bottom'
             }
         };
+    }
+
+    ngOnInit() {
+      this.mapoptions = {
+            center: {lat: 36.890257, lng: 30.707417},
+            zoom: 12
+        };
+
+        this.images = [];
+        this.images.push({source:'assets/images/tree1.jpg', alt:'Description for Tree 1', title:'Tree 1'});
+        this.images.push({source:'assets/images/tree2.jpg', alt:'Description for Tree 2', title:'Tree 2'});
+        this.images.push({source:'assets/images/tree3.jpg', alt:'Description for Tree 3', title:'Tree 3'});
+        this.images.push({source:'assets/images/tree4.jpg', alt:'Description for Tree 4', title:'Tree 4'});
     }
 
     onDataSelect(event) {

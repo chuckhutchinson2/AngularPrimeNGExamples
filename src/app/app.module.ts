@@ -12,6 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TooltipModule } from 'primeng/tooltip';
+import { GalleriaModule } from 'primeng/galleria';
+import { GMapModule } from 'primeng/gmap';
 
 import { AppComponent } from './app.component';
 
@@ -33,7 +35,9 @@ import { AppComponent } from './app.component';
     ButtonModule,
     CalendarModule,
     OverlayPanelModule,
-    TooltipModule
+    TooltipModule,
+    GalleriaModule,
+    GMapModule
   ],
   providers: [],
   bootstrap: [AppComponent]

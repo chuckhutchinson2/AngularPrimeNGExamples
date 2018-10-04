@@ -102,6 +102,13 @@
 		    <p-accordionTab header="Calendar">
 		    	<p-calendar [(ngModel)]="value" [inline]="true" ></p-calendar>
 		    </p-accordionTab>
+		   	<p-accordionTab header="Gallery">
+		    	<p-galleria [images]="images" panelWidth="300" panelHeight="200" [showCaption]="true"></p-galleria>
+		    </p-accordionTab>
+		   	<p-accordionTab header="Map">
+		    	<p-gmap [options]="mapoptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
+			</p-accordionTab>
+
 		</p-accordion>
 	</p-panel>
 </div>
