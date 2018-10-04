@@ -15,6 +15,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { GalleriaModule } from 'primeng/galleria';
 import { GMapModule } from 'primeng/gmap';
 
+import { GetIPAddressService}  from "./services/get-ipaddress.service";
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -39,7 +41,9 @@ import { AppComponent } from './app.component';
     GalleriaModule,
     GMapModule
   ],
-  providers: [],
+  providers: [
+    GetIPAddressService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

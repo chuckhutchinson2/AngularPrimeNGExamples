@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
+import {GMapModule} from 'primeng/primeng';   
+declare var google: any; //new added line 
+
+import { GetIPAddressService } from "./services/get-ipaddress.service";
+import { IpAddressData } from "./ipaddressdata.model";
 
 // https://momentjs.com/docs/
 // https://www.chartjs.org/docs/latest/charts/bar.html
 // https://www.primefaces.org/primeng/#/
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,8 +31,11 @@ export class AppComponent implements OnInit {
   options: any;
   mapoptions: any;
   images: any[];
+  ipinfo: IpAddressData;
+  map: any;
+  overlays: any[];
 
-  constructor() {
+  constructor(private getIPAddressService: GetIPAddressService) {
     var months = [];
     var daysInMonth = [];
     var randomData = [];
@@ -138,17 +145,61 @@ export class AppComponent implements OnInit {
         };
     }
 
-    ngOnInit() {
-      this.mapoptions = {
-            center: {lat: 36.890257, lng: 30.707417},
-            zoom: 12
-        };
+    process(ipInfo) {
+      this.ipinfo = ipInfo; 
+      console.log(this.ipinfo);
+      var lat = 36.890257;
+      var lng = 30.707417
+      if (this.ipinfo != null) {
+          var latLng = this.ipinfo.loc.split(',');
 
-        this.images = [];
-        this.images.push({source:'assets/images/tree1.jpg', alt:'Description for Tree 1', title:'Tree 1'});
-        this.images.push({source:'assets/images/tree2.jpg', alt:'Description for Tree 2', title:'Tree 2'});
-        this.images.push({source:'assets/images/tree3.jpg', alt:'Description for Tree 3', title:'Tree 3'});
-        this.images.push({source:'assets/images/tree4.jpg', alt:'Description for Tree 4', title:'Tree 4'});
+          if (latLng) {
+            lat = parseFloat(latLng[0]);
+            lng = parseFloat(latLng[1]);
+          }
+      }
+
+      console.log(lat);
+      console.log(lng);
+
+
+      var position = {lat: lat, lng: lng};
+
+      this.mapoptions = {
+        center: {lat: lat, lng: lng},
+        zoom: 12
+      };
+
+      this.map.setCenter(position);
+
+      this.overlays.push(new google.maps.Marker({position: position, title: 'Rockville', map: this.map}));
+
+    }
+
+    setMap(event) {
+        this.map = event.map;
+        this.getIPAddressService.find().subscribe(ipInfo => this.process(ipInfo));
+    }
+
+    ngOnInit() {
+
+      this.map = null;
+      this.overlays = [];
+
+      var lat = 36.890257;
+      var lng = 30.707417
+
+      this.mapoptions = {
+        center: {lat: lat, lng: lng},
+        zoom: 12
+      };
+
+
+      this.images = [];
+      this.images.push({source:'assets/images/tree1.jpg', alt:'Description for Tree 1', title:'Tree 1'});
+      this.images.push({source:'assets/images/tree2.jpg', alt:'Description for Tree 2', title:'Tree 2'});
+      this.images.push({source:'assets/images/tree3.jpg', alt:'Description for Tree 3', title:'Tree 3'});
+      this.images.push({source:'assets/images/tree4.jpg', alt:'Description for Tree 4', title:'Tree 4'});
     }
 
     onDataSelect(event) {

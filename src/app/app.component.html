@@ -106,7 +106,7 @@
 		    	<p-galleria [images]="images" panelWidth="300" panelHeight="200" [showCaption]="true"></p-galleria>
 		    </p-accordionTab>
 		   	<p-accordionTab header="Map">
-		    	<p-gmap [options]="mapoptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
+		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
 			</p-accordionTab>
 
 		</p-accordion>
