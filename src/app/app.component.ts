@@ -56,7 +56,6 @@ export class AppComponent implements OnInit {
   ipinfo: IpAddressData;
   map: any;
   overlays: any[];
-  infoWindow: any;
   states: USStateData[];
   featureCollection: FeatureCollection;
 
@@ -75,7 +74,7 @@ export class AppComponent implements OnInit {
 
     this.period = [
             {label:'Select Period', value:null},
-            {label:'Hour', value:{id:1, name: 'Hour', code: 'Hour'}},
+            {label:'Hour', value:{id:1, name: 'Hour', code: 'hour'}},
             {label:'Day', value:{id:2, name: 'Day', code: 'day'}},
             {label:'Week', value:{id:3, name: 'Week', code: 'week'}},
             {label:'Month', value:{id:4, name: 'Month', code: 'month'}}
@@ -227,16 +226,25 @@ export class AppComponent implements OnInit {
       ipInfo.ip + 
       '</td></tr><tr><td>Org</td><td>' + 
       ipInfo.org + 
-      '</td></tr></table>';
+      '</td></tr></table></div>';
 
-      this.overlays.push(new google.maps.Marker({
+
+      var infowindow = new google.maps.InfoWindow({
+          content: content
+      });  
+
+      var marker = new google.maps.Marker({
         position: position, 
         title: overlayTitle, 
-        map: this.map,
-        userData: content
-        }));
+        map: this.map
+        });
 
+      marker.addListener('click', function() {
+        this.map.setCenter(position);
+        infowindow.open(this.map, marker);
+      });
 
+      this.overlays.push(marker);
     }
 
     handleMapClick(event) {
@@ -254,24 +262,8 @@ export class AppComponent implements OnInit {
           });
     }
 
-    handleOverlayClick(event) {
-        let isMarker = event.overlay.getTitle != undefined;
-
-        if(isMarker) {
-            let title = event.overlay.userData;
-
-            var contentString = '<div>' + title + '</div>';
-
-            this.infoWindow.setContent('' + contentString + '');
-
-            this.infoWindow.open(event.map, event.overlay);
-            event.map.setCenter(event.overlay.getPosition());
-        }
-    }
-
     setMap(event) {
         this.map = event.map;
-        this.infoWindow = new google.maps.InfoWindow();
         this.getIPAddressService.find().subscribe(ipInfo => this.process(ipInfo));
         this.stateService.load().subscribe(stateData => this.load(stateData)); 
     }
@@ -293,20 +285,31 @@ export class AppComponent implements OnInit {
       console.log(feature);
       var position = { lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0] };
 
-      var content = '<div><table><tr><td>Location</td><td>' + 
-      feature.properties.place 
-      '</td></tr><tr><td>Alert</td><td>' + 
-      feature.properties.alert + 
+      var alertText = feature.properties.alert != undefined ? feature.properties.alert : "";
+
+      var contentString = '<div><table><tr><td>Location</td><td>' + 
+      feature.properties.place +  
+      '</td></tr><tr><td>Mag</td><td>' + 
+      feature.properties.mag + 
       '</td></tr><tr><td>Type</td><td>' + 
       feature.properties.type + 
-      '</td></tr></table>';
+      '</td></tr></table></div>';
 
       var marker = new google.maps.Marker({
         position: position, 
         title: feature.properties.place, 
-        map: this.map,
-        userData: content
+        map: this.map
         });
+
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });  
+
+      marker.addListener('click', function() {
+        console.log('location opened');
+        this.map.setCenter(position);
+        infowindow.open(this.map, marker);
+      });
 
       return  marker;
     }
@@ -322,11 +325,9 @@ export class AppComponent implements OnInit {
 
     loadEarthQuakes(map) {
       console.log(this.selectedMagnitude.code, this.selectedPeriod.code);
-      
+
       this.geoService.load(this.selectedMagnitude.code, this.selectedPeriod.code).subscribe( data => this.loadData(data))
     }
-
-
 
     clear(map) {
         this.overlays = [];

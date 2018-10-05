@@ -61,7 +61,7 @@
 
 				<p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
 
-		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="overlays" (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" ></p-gmap>
+		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="overlays" (onMapClick)="handleMapClick($event)"></p-gmap>
 			</p-accordionTab>
 		    <p-accordionTab header="Charts">
 		    		<p-tabView>
