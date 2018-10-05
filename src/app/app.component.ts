@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
               private geoService: USGSEarthquakeService) {
 
     this.magnitude = [
-            {label:'Select Magnitude', value:null},
             {label:'Significant', value:{id:1, name: 'Significant', code: 'significant'}},
             {label:'4.5', value:{id:2, name: '4.5', code: '4.5'}},
             {label:'2.5', value:{id:3, name: '2.5', code: '2.5'}},
@@ -73,7 +72,6 @@ export class AppComponent implements OnInit {
         ];
 
     this.period = [
-            {label:'Select Period', value:null},
             {label:'Hour', value:{id:1, name: 'Hour', code: 'hour'}},
             {label:'Day', value:{id:2, name: 'Day', code: 'day'}},
             {label:'Week', value:{id:3, name: 'Week', code: 'week'}},
@@ -287,12 +285,21 @@ export class AppComponent implements OnInit {
 
       var alertText = feature.properties.alert != undefined ? feature.properties.alert : "";
 
+      var when = moment(feature.properties.time);
+      var whenText = when.format('llll')
+
       var contentString = '<div><table><tr><td>Location</td><td>' + 
       feature.properties.place +  
+      '</td></tr><tr><td>When</td><td>' + 
+      whenText + 
+      '</td></tr><tr><td>Alert</td><td>' + 
+      alertText + 
       '</td></tr><tr><td>Mag</td><td>' + 
       feature.properties.mag + 
       '</td></tr><tr><td>Type</td><td>' + 
       feature.properties.type + 
+      '</td></tr><tr><td>URL</td><td><a href=' + 
+      feature.properties.url + ' target=\"_blank\"> Details</a>' +
       '</td></tr></table></div>';
 
       var marker = new google.maps.Marker({
