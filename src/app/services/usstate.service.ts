@@ -1,18 +1,19 @@
+
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
-import {IpAddressData} from "../ipaddressdata.model";
+import { USStateData, Coordinate } from '../usstatedata.model';
 
-@Injectable()
-export class GetIPAddressService {
-	url = 'http://ipinfo.io/json';
+export class USStateService {
+
+  	url = '/states.json';
 
     constructor(private http:HttpClient) {
     }
 
-    find(): Observable<IpAddressData> {
-        return this.http.get<IpAddressData>(this.url);
+    load(): Observable<USStateData[]> {
+        return this.http.get<USStateData[]>(this.url);
     }
 }

@@ -7,6 +7,9 @@ declare var google: any; //new added line
 import { GetIPAddressService } from "./services/get-ipaddress.service";
 import { IpAddressData } from "./ipaddressdata.model";
 
+import { USStateService}  from "./services/usstate.service";
+import { USStateData, Coordinate } from './usstatedata.model';
+
 // https://momentjs.com/docs/
 // https://www.chartjs.org/docs/latest/charts/bar.html
 // https://www.primefaces.org/primeng/#/
@@ -35,8 +38,9 @@ export class AppComponent implements OnInit {
   map: any;
   overlays: any[];
   infoWindow: any;
+  states: USStateData[];
 
-  constructor(private getIPAddressService: GetIPAddressService) {
+  constructor(private getIPAddressService: GetIPAddressService, private stateService: USStateService) {
     var months = [];
     var daysInMonth = [];
     var randomData = [];
@@ -144,6 +148,17 @@ export class AppComponent implements OnInit {
                 position: 'bottom'
             }
         };
+
+      this.stateService.load().subscribe(stateData => this.load(stateData)); 
+    }
+
+    load(stateData) {
+      this.states = stateData;
+
+      for (let state in this.states) {
+          console.log(state);
+          this.overlays.push(this.createPolygon(state));
+      }
     }
 
     process(ipInfo) {
@@ -191,9 +206,21 @@ export class AppComponent implements OnInit {
         map: this.map,
         userData: content
         }));
+
+
     }
 
     handleMapClick(event) {
+    }
+
+    createPolygon(usStateData) {
+      return  new google.maps.Polygon({
+            paths: usStateData.coordinates, 
+            strokeOpacity: 0.5, 
+            strokeWeight: 1,
+            fillColor: usStateData.color, 
+            fillOpacity: 0.35
+          });
     }
 
     handleOverlayClick(event) {

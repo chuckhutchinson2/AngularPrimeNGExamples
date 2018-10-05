@@ -16,6 +16,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { GMapModule } from 'primeng/gmap';
 
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
+import { USStateService}  from "./services/usstate.service";
 
 import { AppComponent } from './app.component';
 
@@ -42,7 +43,7 @@ import { AppComponent } from './app.component';
     GMapModule
   ],
   providers: [
-    GetIPAddressService
+    GetIPAddressService, USStateService
   ],
   bootstrap: [AppComponent]
 })
