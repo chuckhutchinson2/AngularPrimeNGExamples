@@ -11,6 +11,7 @@ import { USStateService}  from "./services/usstate.service";
 import { USStateData, Coordinate } from './usstatedata.model';
 
 import { FeatureCollection, FeatureMetaData, EarthQuakeFeature, EarthQuakeProperties, EarthQuakeGeometry } from "./earthquakedata.model";
+import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 
 // https://momentjs.com/docs/
 // https://www.chartjs.org/docs/latest/charts/bar.html
@@ -46,8 +47,11 @@ export class AppComponent implements OnInit {
   overlays: any[];
   infoWindow: any;
   states: USStateData[];
+  featureCollection: FeatureCollection;
 
-  constructor(private getIPAddressService: GetIPAddressService, private stateService: USStateService) {
+  constructor(private getIPAddressService: GetIPAddressService, 
+              private stateService: USStateService,
+              private geoService: USGSEarthquakeService) {
     var months = [];
     var daysInMonth = [];
     var randomData = [];
@@ -249,13 +253,37 @@ export class AppComponent implements OnInit {
     }
 
     loadStates(map) {
-      this.overlays = [];
-
       this.process(this.ipinfo);
 
       for (let state of this.states) {
           this.overlays.push(this.createPolygon(state));
       }
+    }
+
+    createMarker(feature) {
+      console.log(feature);
+      var position = { lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0] };
+
+      var marker = new google.maps.Marker({
+        position: position, 
+        title: feature.properties.place, 
+        map: this.map
+        });
+
+      return  marker;
+    }
+
+    loadData(featureCollection) {
+      // console.log(featureCollection);
+      this.featureCollection = featureCollection;
+
+      for (let feature of this.featureCollection.features) {
+          this.overlays.push(this.createMarker(feature));
+      }
+    }
+
+    loadEarthQuakes(map) {
+      this.geoService.load('significant','week').subscribe( data => this.loadData(data))
     }
 
     clear(map) {

@@ -46,7 +46,7 @@ import { AppComponent } from './app.component';
   providers: [
     GetIPAddressService, 
     USStateService,
-    USGSEarthquakeService
+    USGSEarthquakeService,
   ],
   bootstrap: [AppComponent]
 })
