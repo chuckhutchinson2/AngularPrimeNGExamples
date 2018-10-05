@@ -239,18 +239,21 @@ export class AppComponent implements OnInit {
     load(stateData) {
       this.states = stateData;
       // console.log(this.states);
+    }
+
+    loadStates(map) {
+      this.overlays = [];
+
+      this.process(this.ipinfo);
 
       for (let state of this.states) {
           this.overlays.push(this.createPolygon(state));
       }
     }
 
-    zoomIn(map) {
-        map.setZoom(map.getZoom()+1);
-    }
-
-    zoomOut(map) {
-        map.setZoom(map.getZoom()-1);
+    clear(map) {
+        this.overlays = [];
+        this.process(this.ipinfo);
     }
 
     ngOnInit() {
