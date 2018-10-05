@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
+
 import * as moment from 'moment';
 
 import {GMapModule} from 'primeng/primeng';   
@@ -13,13 +15,15 @@ import { USStateData, Coordinate } from './usstatedata.model';
 import { FeatureCollection, FeatureMetaData, EarthQuakeFeature, EarthQuakeProperties, EarthQuakeGeometry } from "./earthquakedata.model";
 import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 
-// https://momentjs.com/docs/
-// https://www.chartjs.org/docs/latest/charts/bar.html
-// https://www.primefaces.org/primeng/#/
+interface Magnitude {
+  name: string;
+  code: string;
+}
 
-// http://diva-gis.org/gdata
-// https://gadm.org/download_country_v3.html
-//
+interface Period {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -28,6 +32,13 @@ import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 })
 export class AppComponent implements OnInit {
   title = 'AngularPrimeNGExamples';
+
+  magnitude: SelectItem[];
+  selectedMagnitude: Magnitude;
+
+  period: SelectItem[];
+  selectedPeriod: Period;
+
   visibleSidebar1;
   visibleSidebar2;
   visibleSidebar3;
@@ -52,6 +63,24 @@ export class AppComponent implements OnInit {
   constructor(private getIPAddressService: GetIPAddressService, 
               private stateService: USStateService,
               private geoService: USGSEarthquakeService) {
+
+    this.magnitude = [
+            {label:'Select Magnitude', value:null},
+            {label:'Significant', value:{id:1, name: 'Significant', code: 'significant'}},
+            {label:'4.5', value:{id:2, name: '4.5', code: '4.5'}},
+            {label:'2.5', value:{id:3, name: '2.5', code: '2.5'}},
+            {label:'1.0', value:{id:4, name: '1.0', code: '1.0'}},
+            {label:'All', value:{id:5, name: 'all', code: 'all'}}
+        ];
+
+    this.period = [
+            {label:'Select Period', value:null},
+            {label:'Hour', value:{id:1, name: 'Hour', code: 'Hour'}},
+            {label:'Day', value:{id:2, name: 'Day', code: 'day'}},
+            {label:'Week', value:{id:3, name: 'Week', code: 'week'}},
+            {label:'Month', value:{id:4, name: 'Month', code: 'month'}}
+        ];
+
     var months = [];
     var daysInMonth = [];
     var randomData = [];
@@ -264,10 +293,19 @@ export class AppComponent implements OnInit {
       console.log(feature);
       var position = { lat: feature.geometry.coordinates[1], lng: feature.geometry.coordinates[0] };
 
+      var content = '<div><table><tr><td>Location</td><td>' + 
+      feature.properties.place 
+      '</td></tr><tr><td>Alert</td><td>' + 
+      feature.properties.alert + 
+      '</td></tr><tr><td>Type</td><td>' + 
+      feature.properties.type + 
+      '</td></tr></table>';
+
       var marker = new google.maps.Marker({
         position: position, 
         title: feature.properties.place, 
-        map: this.map
+        map: this.map,
+        userData: content
         });
 
       return  marker;
@@ -283,8 +321,12 @@ export class AppComponent implements OnInit {
     }
 
     loadEarthQuakes(map) {
-      this.geoService.load('significant','week').subscribe( data => this.loadData(data))
+      console.log(this.selectedMagnitude.code, this.selectedPeriod.code);
+      
+      this.geoService.load(this.selectedMagnitude.code, this.selectedPeriod.code).subscribe( data => this.loadData(data))
     }
+
+
 
     clear(map) {
         this.overlays = [];
@@ -303,7 +345,6 @@ export class AppComponent implements OnInit {
         center: {lat: lat, lng: lng},
         zoom: 12
       };
-
 
       this.images = [];
       this.images.push({source:'assets/images/tree1.jpg', alt:'Description for Tree 1', title:'Tree 1'});

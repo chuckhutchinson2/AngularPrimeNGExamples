@@ -57,6 +57,9 @@
 		   		<button type="button" pButton label="Clear" icon="pi" (click)="clear(gmap.getMap())"></button>
 		   		<button type="button" pButton label="States" icon="pi" (click)="loadStates(gmap.getMap())"></button>
 		   		<button type="button" pButton label="Earthquakes" icon="pi" (click)="loadEarthQuakes(gmap.getMap())"></button>
+		   		<p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude" ></p-dropdown>
+
+				<p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
 
 		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="overlays" (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" ></p-gmap>
 			</p-accordionTab>

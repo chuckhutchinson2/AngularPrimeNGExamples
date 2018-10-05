@@ -14,6 +14,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TooltipModule } from 'primeng/tooltip';
 import { GalleriaModule } from 'primeng/galleria';
 import { GMapModule } from 'primeng/gmap';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
 import { USStateService}  from "./services/usstate.service";
@@ -41,7 +42,8 @@ import { AppComponent } from './app.component';
     OverlayPanelModule,
     TooltipModule,
     GalleriaModule,
-    GMapModule
+    GMapModule,
+    DropdownModule
   ],
   providers: [
     GetIPAddressService, 
