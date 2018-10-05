@@ -20,31 +20,6 @@ import { FeatureCollection, FeatureMetaData, EarthQuakeFeature, EarthQuakeProper
 // https://gadm.org/download_country_v3.html
 //
 
-// earth quakes
-// http://geojson.org/
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_hour.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_hour.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_hour.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_day.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson
-// https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

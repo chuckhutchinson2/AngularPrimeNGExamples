@@ -17,6 +17,7 @@ import { GMapModule } from 'primeng/gmap';
 
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
 import { USStateService}  from "./services/usstate.service";
+import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 
 import { AppComponent } from './app.component';
 
@@ -44,7 +45,8 @@ import { AppComponent } from './app.component';
   ],
   providers: [
     GetIPAddressService, 
-    USStateService
+    USStateService,
+    USGSEarthquakeService
   ],
   bootstrap: [AppComponent]
 })
