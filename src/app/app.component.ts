@@ -148,18 +148,7 @@ export class AppComponent implements OnInit {
                 position: 'bottom'
             }
         };
-
-      this.stateService.load().subscribe(stateData => this.load(stateData)); 
-    }
-
-    load(stateData) {
-      this.states = stateData;
-
-      for (let state in this.states) {
-          console.log(state);
-          this.overlays.push(this.createPolygon(state));
-      }
-    }
+     }
 
     process(ipInfo) {
       this.ipinfo = ipInfo; 
@@ -214,6 +203,8 @@ export class AppComponent implements OnInit {
     }
 
     createPolygon(usStateData) {
+
+      console.log("state: ", usStateData);
       return  new google.maps.Polygon({
             paths: usStateData.coordinates, 
             strokeOpacity: 0.5, 
@@ -242,6 +233,16 @@ export class AppComponent implements OnInit {
         this.map = event.map;
         this.infoWindow = new google.maps.InfoWindow();
         this.getIPAddressService.find().subscribe(ipInfo => this.process(ipInfo));
+        this.stateService.load().subscribe(stateData => this.load(stateData)); 
+    }
+
+    load(stateData) {
+      this.states = stateData;
+      // console.log(this.states);
+
+      for (let state of this.states) {
+          this.overlays.push(this.createPolygon(state));
+      }
     }
 
     zoomIn(map) {

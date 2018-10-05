@@ -109,7 +109,7 @@
 		   		<button type="button" pButton label="Zoom In" icon="pi pi-plus" (click)="zoomIn(gmap.getMap())" style="margin-right:.25em"></button>
 		   		<button type="button" pButton label="Zoom Out" icon="pi pi-minus" (click)="zoomOut(gmap.getMap())"></button>
 
-		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'320px'}" [overlays]="overlays"
+		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="overlays"
        (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" ></p-gmap>
 			</p-accordionTab>
 

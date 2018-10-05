@@ -43,7 +43,8 @@ import { AppComponent } from './app.component';
     GMapModule
   ],
   providers: [
-    GetIPAddressService, USStateService
+    GetIPAddressService, 
+    USStateService
   ],
   bootstrap: [AppComponent]
 })
