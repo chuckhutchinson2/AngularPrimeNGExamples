@@ -15,6 +15,9 @@ import { USStateData, Coordinate } from './usstatedata.model';
 import { FeatureCollection, FeatureMetaData, EarthQuakeFeature, EarthQuakeProperties, EarthQuakeGeometry } from "./earthquakedata.model";
 import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 
+import { WeatherData } from "./weatherdata.model";
+import { WeatherService } from "./services/weather.service";
+
 interface Magnitude {
   name: string;
   code: string;
@@ -61,7 +64,8 @@ export class AppComponent implements OnInit {
 
   constructor(private getIPAddressService: GetIPAddressService, 
               private stateService: USStateService,
-              private geoService: USGSEarthquakeService) {
+              private geoService: USGSEarthquakeService,
+              private weatherService: WeatherService) {
 
     this.magnitude = [
             {label:'Significant', value:{id:1, name: 'Significant', code: 'significant'}},
@@ -187,6 +191,57 @@ export class AppComponent implements OnInit {
         };
      }
 
+    processWeather(position, ipInfo, weather) {
+      var overlayTitle = ipInfo.city +', '+ ipInfo.region;
+
+      var sunrise = moment(weather.sys.sunrise * 1000);
+      var sunriseText = sunrise.format('LT')
+
+      var sunset = moment(weather.sys.sunset * 1000);
+      var sunsetText = sunset.format('LT')
+
+      var content = '<div><table><tr><td>Location</td><td>' + 
+      ipInfo.city + ', ' + 
+      ipInfo.region + ', ' + 
+      ipInfo.country + 
+      '</td></tr><tr><td>Zip</td><td>' + 
+      ipInfo.postal + 
+      '</td></tr><tr><td>Host</td><td>' + 
+      ipInfo.hostname + 
+      '</td></tr><tr><td>IP Address</td><td>' + 
+      ipInfo.ip + 
+      '</td></tr><tr><td>Org</td><td>' + 
+      ipInfo.org + 
+      '</td></tr><tr><td>Sunrise</td><td>' + 
+      sunriseText + 
+      '</td></tr><tr><td>Sunset</td><td>' + 
+      sunsetText + 
+      '</td></tr><tr><td>Current</td><td>' + 
+      weather.main.temp + 
+      '</td></tr><tr><td>High</td><td>' + 
+      weather.main.temp_max + 
+      '</td></tr><tr><td>Low</td><td>' + 
+      weather.main.temp_min + 
+      '</td></tr></table></div>';
+
+      var infowindow = new google.maps.InfoWindow({
+          content: content
+      });  
+
+      var marker = new google.maps.Marker({
+        position: position, 
+        title: overlayTitle, 
+        map: this.map
+        });
+
+      marker.addListener('click', function() {
+        this.map.setCenter(position);
+        infowindow.open(this.map, marker);
+      });
+
+      this.overlays.push(marker);
+    }
+
     process(ipInfo) {
       this.ipinfo = ipInfo; 
       console.log(this.ipinfo);
@@ -210,39 +265,7 @@ export class AppComponent implements OnInit {
 
       this.map.setCenter(position);
 
-      var overlayTitle = ipInfo.city +', '+ ipInfo.region;
-
-      var content = '<div><table><tr><td>Location</td><td>' + 
-      ipInfo.city + ', ' + 
-      ipInfo.region + ', ' + 
-      ipInfo.country + 
-      '</td></tr><tr><td>Zip</td><td>' + 
-      ipInfo.postal + 
-      '</td></tr><tr><td>Host</td><td>' + 
-      ipInfo.hostname + 
-      '</td></tr><tr><td>IP Address</td><td>' + 
-      ipInfo.ip + 
-      '</td></tr><tr><td>Org</td><td>' + 
-      ipInfo.org + 
-      '</td></tr></table></div>';
-
-
-      var infowindow = new google.maps.InfoWindow({
-          content: content
-      });  
-
-      var marker = new google.maps.Marker({
-        position: position, 
-        title: overlayTitle, 
-        map: this.map
-        });
-
-      marker.addListener('click', function() {
-        this.map.setCenter(position);
-        infowindow.open(this.map, marker);
-      });
-
-      this.overlays.push(marker);
+      this.weatherService.get(lat, lng).subscribe(weather => this.processWeather(position, ipInfo, weather));
     }
 
     handleMapClick(event) {
@@ -362,9 +385,6 @@ export class AppComponent implements OnInit {
     }
 
     onDataSelect(event) {
-
         console.log('onDataSelect event is -> ', event);
-        // console.log(event.dataset);
-
       }
 }

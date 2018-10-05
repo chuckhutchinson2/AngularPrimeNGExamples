@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
 import { USStateService}  from "./services/usstate.service";
 import { USGSEarthquakeService } from "./services/usgsearthquake.service";
+import { WeatherService } from "./services/weather.service";
 
 import { AppComponent } from './app.component';
 
@@ -49,6 +50,7 @@ import { AppComponent } from './app.component';
     GetIPAddressService, 
     USStateService,
     USGSEarthquakeService,
+    WeatherService,
   ],
   bootstrap: [AppComponent]
 })
