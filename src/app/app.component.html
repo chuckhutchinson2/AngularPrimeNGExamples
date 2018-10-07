@@ -55,6 +55,7 @@
 		    </p-accordionTab>
 		   	<p-accordionTab header="Map">
 		   		<button type="button" pButton label="Clear" icon="pi" (click)="clear(gmap.getMap())"></button>
+		   		<button type="button" pButton label="Countries" icon="pi" (click)="loadCountries(gmap.getMap())"></button>
 		   		<button type="button" pButton label="States" icon="pi" (click)="loadStates(gmap.getMap())"></button>
 		   		<button type="button" pButton label="Earthquakes" icon="pi" (click)="loadEarthQuakes(gmap.getMap())"></button>
 		   		<p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude" ></p-dropdown>

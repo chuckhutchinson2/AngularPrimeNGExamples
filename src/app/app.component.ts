@@ -294,6 +294,16 @@ export class AppComponent implements OnInit {
       // console.log(this.states);
     }
 
+
+    loadCountries(map) {
+      //
+      var kmlLayer = new google.maps.KmlLayer('http://www.geocodezip.com/geoxml3_test/world_countries_kml.xml', {
+        preserveViewport: true,
+        suppressInfoWindows: false
+        });
+      this.overlays.push(kmlLayer);
+    }
+
     loadStates(map) {
       this.process(this.ipinfo);
 
