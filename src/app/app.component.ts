@@ -335,10 +335,22 @@ export class AppComponent implements OnInit {
       feature.properties.url + ' target=\"_blank\"> Details</a>' +
       '</td></tr></table></div>';
 
+        var quakeFillColor = feature.properties.alert != undefined ? feature.properties.alert : '#f00';
+
+        var mag = Math.exp(parseFloat(feature.properties.mag)) * 0.1;
+        var featureIcon = {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: mag,
+              fillColor: quakeFillColor,
+              fillOpacity: 0.35,
+              strokeWeight: 0
+            };
+
       var marker = new google.maps.Marker({
         position: position, 
         title: feature.properties.place, 
-        map: this.map
+        map: this.map,
+        icon: featureIcon
         });
 
       var infowindow = new google.maps.InfoWindow({
