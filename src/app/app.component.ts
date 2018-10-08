@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
   value: Date;
   data: any;
   linedata: any;
+  quakeLinedata: any;
   bardata: any;
   piedata: any;
   options: any;
@@ -61,11 +62,15 @@ export class AppComponent implements OnInit {
   overlays: any[];
   states: USStateData[];
   featureCollection: FeatureCollection;
+  magnitudeData: number[];
+  magnitudes: string[];
 
   constructor(private getIPAddressService: GetIPAddressService, 
               private stateService: USStateService,
               private geoService: USGSEarthquakeService,
               private weatherService: WeatherService) {
+
+    this.magnitudeData = [];
 
     this.magnitude = [
             {label:'Significant', value:{id:1, name: 'Significant', code: 'significant'}},
@@ -85,6 +90,7 @@ export class AppComponent implements OnInit {
     var months = [];
     var daysInMonth = [];
     var randomData = [];
+
 
     var colors = ['red','blue','green','yellow','purple','lightblue','teal','lime','yellowgreen', 'orange', 'sienna','firebrick'];
 
@@ -127,6 +133,23 @@ export class AppComponent implements OnInit {
                 }
             ]
         };
+
+
+      this.magnitudes = ['0', '1','2','3','4','5','6','7','8','8', '10'];
+      this.magnitudeData = [0,0,0,0,0,0,0,0,0,0];
+
+      this.quakeLinedata = {
+            labels: this.magnitudes,
+            datasets: [
+                {
+                    label: 'Magnitude',
+                    data: this.magnitudeData,
+                    fill: false,
+                    backgroundColor: '#9CCC65',
+                    borderColor: '#4bc0c0'
+                }
+          ]
+      };       
 
       this.bardata = {
             labels: months,
@@ -373,6 +396,31 @@ export class AppComponent implements OnInit {
       for (let feature of this.featureCollection.features) {
           this.overlays.push(this.createMarker(feature));
       }
+
+      // need to group the data into buckets from 1 to 10 and then count everything
+      var rawData = featureCollection.features.map(f => f.properties.mag);
+
+      var dataToGraph = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+      for (let m of rawData) {
+        dataToGraph[Math.floor(m)]++;
+      }
+
+      this.magnitudeData = dataToGraph;
+
+      this.quakeLinedata = {
+            labels: this.magnitudes,
+            datasets: [
+                {
+                    label: 'Magnitude',
+                    data: this.magnitudeData,
+                    fill: false,
+                    borderColor: '#4bc0c0'
+                }
+          ]
+      };       
+
+      console.log(this.magnitudeData);
     }
 
     loadEarthQuakes(map) {

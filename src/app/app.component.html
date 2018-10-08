@@ -76,6 +76,11 @@
 							    Content
 							</p-overlayPanel>
 		    			</div>
+		    			<p-tabPanel header="Quakes" leftIcon="pi pi-calendar">
+		    				<p-chart  type="bar" [data]="quakeLinedata" (onDataSelect)="onDataSelect($event)" [options]="options">
+
+		    				</p-chart>
+		    			</p-tabPanel>
 				    	<p-tabPanel header="Line" leftIcon="pi pi-calendar">
 		    				<p-chart  type="line" [data]="linedata" (onDataSelect)="onDataSelect($event)" [options]="options">
 
