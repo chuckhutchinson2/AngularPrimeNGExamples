@@ -58,12 +58,16 @@ export class QuakeComponent implements OnInit {
 	            {label:'All', value:{id:5, name: 'all', code: 'all'}}
 	        ];
 
+	    this.selectedMagnitude = {name: 'all', code: 'all'};
+
 	    this.period = [
 	            {label:'Hour', value:{id:1, name: 'Hour', code: 'hour'}},
 	            {label:'Day', value:{id:2, name: 'Day', code: 'day'}},
 	            {label:'Week', value:{id:3, name: 'Week', code: 'week'}},
 	            {label:'Month', value:{id:4, name: 'Month', code: 'month'}}
 	        ];
+
+	    this.selectedPeriod = {name: 'Hour', code: 'hour'};
 
 	      this.magnitudes = ['0', '1','2','3','4','5','6','7','8','8', '10'];
 	      this.magnitudeData = [0,0,0,0,0,0,0,0,0,0];
@@ -75,7 +79,7 @@ export class QuakeComponent implements OnInit {
 	                    label: 'Magnitude',
 	                    data: this.magnitudeData,
 	                    fill: false,
-	                    backgroundColor: '#9CCC65',
+	                    backgroundColor: 'red',
 	                    borderColor: '#4bc0c0'
 	                }
 	          ]
@@ -84,12 +88,25 @@ export class QuakeComponent implements OnInit {
 		this.options = {
             title: {
                 display: true,
-                text: 'Eartquakes',
+                text: 'Earthquakes',
                 fontSize: 16
             },
             legend: {
                 position: 'top'
-            }
+            },
+            scales: {
+                    yAxes: [
+                        {
+                            id: 'y-axis-1',
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                }
         };    
 
 		var lat = 39.4624;
@@ -201,7 +218,8 @@ export class QuakeComponent implements OnInit {
 	            {
 	                label: 'Magnitude',
 	                data: this.magnitudeData,
-	                fill: false,
+	                fill: true,
+	                backgroundColor: 'red',
 	                borderColor: '#4bc0c0'
 	            }
 	          ]
