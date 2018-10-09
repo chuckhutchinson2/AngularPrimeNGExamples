@@ -30,11 +30,14 @@ export class QuakeComponent implements OnInit {
 	magnitudeData: number[];
 	magnitudes: string[];
 
-	quakeLinedata: any;
-	options: any;
+	quakeBarData: any;
+	barChartOptions: any;
+
+	quakeLineData: any;
+	lineChartOptions: any;
 
 	map: any;
-	mapoptions: any;
+	mapOptions: any;
 	quakeOverlays: any[];
 	position: any;
 
@@ -72,7 +75,7 @@ export class QuakeComponent implements OnInit {
 	      this.magnitudes = ['0', '1','2','3','4','5','6','7','8','8', '10'];
 	      this.magnitudeData = [0,0,0,0,0,0,0,0,0,0];
 
-	      this.quakeLinedata = {
+	      this.quakeBarData = {
 	            labels: this.magnitudes,
 	            datasets: [
 	                {
@@ -85,7 +88,20 @@ export class QuakeComponent implements OnInit {
 	          ]
 	      };   
 
-		this.options = {
+	      this.quakeLineData = {
+	            labels:[],
+	            datasets: [
+	                {
+	                    label: 'Magnitude',
+	                    data: [],
+	                    fill: false,
+	                    backgroundColor: 'red',
+	                    borderColor: '#4bc0c0'
+	                }
+	          ]
+	      };   
+
+		this.barChartOptions = {
             title: {
                 display: true,
                 text: 'Earthquakes',
@@ -107,13 +123,37 @@ export class QuakeComponent implements OnInit {
                         }
                     ]
                 }
-        };    
+        };   
+
+		this.lineChartOptions = {
+            title: {
+                display: true,
+                text: 'Earthquakes',
+                fontSize: 16
+            },
+            legend: {
+                position: 'top'
+            },
+            scales: {
+                    yAxes: [
+                        {
+                            id: 'y-axis-1',
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                }
+        };          
 
 		var lat = 39.4624;
 		var lng = -77.2758;
 		this.position = {lat: lat, lng: lng};
 
-		this.mapoptions = {
+		this.mapOptions = {
 	        center: this.position,
 	        zoom: 5
       	};	        
@@ -187,7 +227,20 @@ export class QuakeComponent implements OnInit {
       // console.log(featureCollection);
       this.featureCollection = featureCollection;
 
+
+      var lineLabels = [];
+      var lineData = [];
+
       for (let feature of this.featureCollection.features) {
+
+      	var when = moment(feature.properties.time);
+      	var whenText = when.format('llll')
+
+      	lineLabels.push(whenText);
+      	lineData.push ({
+				t: whenText,
+				y: feature.properties.mag
+			});
 
       	var marker = this.createMarker(feature);
 
@@ -207,12 +260,12 @@ export class QuakeComponent implements OnInit {
         dataToGraph[Math.floor(m)]++;
       }
 
-      this.resetQuakeChart(dataToGraph)
+      this.resetQuakeChart(dataToGraph, lineLabels, lineData)
     }
 
-    resetQuakeChart(dataToGraph) {
+    resetQuakeChart(dataToGraph, lineLabels, lineData) {
 		this.magnitudeData = dataToGraph;
-		this.quakeLinedata = {
+		this.quakeBarData = {
 	        labels: this.magnitudes,
 	        datasets: [
 	            {
@@ -224,6 +277,19 @@ export class QuakeComponent implements OnInit {
 	            }
 	          ]
 	      };       
+
+	      this.quakeLineData = {
+	            labels:lineLabels,
+	            datasets: [
+	                {
+	                    label: 'Magnitude',
+	                    data: lineData,
+	                    fill: false,
+	                    backgroundColor: 'red',
+	                    borderColor: '#4bc0c0'
+	                }
+	          ]
+	      }; 
 
 	      console.log(this.magnitudeData);
     }
@@ -237,7 +303,7 @@ export class QuakeComponent implements OnInit {
     clear(map) {
         this.quakeOverlays = [];
         this.magnitudeData = [0,0,0,0,0,0,0,0,0,0];
-        this.resetQuakeChart(this.magnitudeData)
+        this.resetQuakeChart(this.magnitudeData, [], [])
     }
 
 	onDataSelect(event) {

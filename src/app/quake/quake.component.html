@@ -1,15 +1,18 @@
 
 <button type="button" pButton label="Clear" icon="pi" (click)="clear(gmap.getMap())"></button>
 <button type="button" pButton label="Earthquakes" icon="pi" (click)="loadEarthQuakes(gmap.getMap())"></button>
-<p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude.name" ></p-dropdown>
+<p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude" ></p-dropdown>
 
-<p-dropdown [options]="period" [(ngModel)]="selectedPeriod.name"></p-dropdown>
+<p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
 
 <div class="ui-g">
 	<div class="ui-g-6">
-		<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays" (onMapClick)="handleMapClick($event)"></p-gmap>
+		<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapOptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays" (onMapClick)="handleMapClick($event)"></p-gmap>
 	</div>
 	<div class="ui-g-6">
-		<p-chart  type="bar" [data]="quakeLinedata" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="options" ></p-chart>
+		<p-chart  type="bar" [data]="quakeBarData" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="barChartOptions" ></p-chart>
 	</div>
+</div>
+<div>
+	<p-chart  type="line" [data]="quakeLineData" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="lineChartOptions" ></p-chart>
 </div>
