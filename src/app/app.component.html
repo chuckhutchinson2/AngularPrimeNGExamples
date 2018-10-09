@@ -40,7 +40,10 @@
 		<button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"></button>
 
 		<p-accordion>
-		    <p-accordionTab header="Tabs" [selected]="true">
+			<p-accordionTab header="Quakes" [selected]="true">
+				<app-quake></app-quake>
+			</p-accordionTab>
+		    <p-accordionTab header="Tabs">
 				<p-tabView>
 				    <p-tabPanel header="Tab I" leftIcon="pi pi-calendar">
 				        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
@@ -76,11 +79,6 @@
 							    Content
 							</p-overlayPanel>
 		    			</div>
-		    			<p-tabPanel header="Quakes" leftIcon="pi pi-calendar">
-		    				<p-chart  type="bar" [data]="quakeLinedata" (onDataSelect)="onDataSelect($event)" [options]="options">
-
-		    				</p-chart>
-		    			</p-tabPanel>
 				    	<p-tabPanel header="Line" leftIcon="pi pi-calendar">
 		    				<p-chart  type="line" [data]="linedata" (onDataSelect)="onDataSelect($event)" [options]="options">
 

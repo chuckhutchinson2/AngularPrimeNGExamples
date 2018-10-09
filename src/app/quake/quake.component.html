@@ -1,0 +1,10 @@
+
+<button type="button" pButton label="Clear" icon="pi" (click)="clear(gmap.getMap())"></button>
+<button type="button" pButton label="Earthquakes" icon="pi" (click)="loadEarthQuakes(gmap.getMap())"></button>
+<p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude" ></p-dropdown>
+
+<p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
+
+<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays" (onMapClick)="handleMapClick($event)"></p-gmap>
+
+<p-chart  type="bar" [data]="quakeLinedata" (onDataSelect)="onDataSelect($event)" [options]="options"></p-chart>

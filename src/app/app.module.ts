@@ -22,10 +22,12 @@ import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 import { WeatherService } from "./services/weather.service";
 
 import { AppComponent } from './app.component';
+import { QuakeComponent } from './quake/quake.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QuakeComponent
   ],
   imports: [
     BrowserModule,
