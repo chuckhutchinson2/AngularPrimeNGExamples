@@ -7,7 +7,7 @@
 
 <div class="ui-g">
 	<div class="ui-g-6">
-		<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapOptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays" (onMapClick)="handleMapClick($event)"></p-gmap>
+		<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapOptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays"></p-gmap>
 	</div>
 	<div class="ui-g-6">
 		<p-chart  type="bar" [data]="quakeBarData" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="barChartOptions" ></p-chart>
