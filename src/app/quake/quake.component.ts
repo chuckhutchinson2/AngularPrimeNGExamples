@@ -279,11 +279,11 @@ export class QuakeComponent implements OnInit {
 	      };       
 
 	      this.quakeLineData = {
-	            labels:lineLabels,
+	            labels:lineLabels.reverse(),
 	            datasets: [
 	                {
 	                    label: 'Magnitude',
-	                    data: lineData,
+	                    data: lineData.reverse(),
 	                    fill: false,
 	                    backgroundColor: 'red',
 	                    borderColor: '#4bc0c0'

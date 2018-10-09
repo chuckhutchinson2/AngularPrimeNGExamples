@@ -13,6 +13,9 @@
 		<p-chart  type="bar" [data]="quakeBarData" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="barChartOptions" ></p-chart>
 	</div>
 </div>
-<div>
-	<p-chart  type="line" [data]="quakeLineData" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="lineChartOptions" ></p-chart>
+<div class="chartWrapper">
+	<div class="chartWrapper">
+		<p-chart  type="line" [data]="quakeLineData" (onDataSelect)="onDataSelect($event)" width="100%" height="500px" [options]="lineChartOptions" ></p-chart>
+	</div>
+	
 </div>
