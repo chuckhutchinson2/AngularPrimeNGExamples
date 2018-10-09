@@ -23,11 +23,13 @@ import { WeatherService } from "./services/weather.service";
 
 import { AppComponent } from './app.component';
 import { QuakeComponent } from './quake/quake.component';
+import { USStatesComponent } from './usstates/usstates.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuakeComponent
+    QuakeComponent,
+    USStatesComponent
   ],
   imports: [
     BrowserModule,
