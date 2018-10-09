@@ -10,12 +10,26 @@ import { ChartModule } from 'primeng/chart';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TooltipModule } from 'primeng/tooltip';
+import { GalleriaModule } from 'primeng/galleria';
+import { GMapModule } from 'primeng/gmap';
+import { DropdownModule } from 'primeng/dropdown';
+
+import { GetIPAddressService}  from "./services/get-ipaddress.service";
+import { USStateService}  from "./services/usstate.service";
+import { USGSEarthquakeService } from "./services/usgsearthquake.service";
+import { WeatherService } from "./services/weather.service";
 
 import { AppComponent } from './app.component';
+import { QuakeComponent } from './quake/quake.component';
+import { USStatesComponent } from './usstates/usstates.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QuakeComponent,
+    USStatesComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +43,19 @@ import { AppComponent } from './app.component';
     ChartModule,
     SidebarModule,
     ButtonModule,
-    CalendarModule
+    CalendarModule,
+    OverlayPanelModule,
+    TooltipModule,
+    GalleriaModule,
+    GMapModule,
+    DropdownModule
   ],
-  providers: [],
+  providers: [
+    GetIPAddressService, 
+    USStateService,
+    USGSEarthquakeService,
+    WeatherService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

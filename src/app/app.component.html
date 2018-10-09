@@ -40,7 +40,14 @@
 		<button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"></button>
 
 		<p-accordion>
-		    <p-accordionTab header="Tabs" [selected]="true">
+			<p-accordionTab header="Quakes" [selected]="true">
+				<app-quake></app-quake>
+			</p-accordionTab>
+			<p-accordionTab header="States">
+				<app-usstates></app-usstates>
+			</p-accordionTab>
+
+		    <p-accordionTab header="Tabs">
 				<p-tabView>
 				    <p-tabPanel header="Tab I" leftIcon="pi pi-calendar">
 				        The story begins as Don Vito Corleone, the head of a New York Mafia family, overseeshis daughter's wedding. His beloved son ichael has just come home from the war, but does not intend to become part of his father's business. T hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good of the family.
@@ -53,25 +60,71 @@
 				    </p-tabPanel>
 				</p-tabView>
 		    </p-accordionTab>
+		   	<p-accordionTab header="Map">
+		   		<button type="button" pButton label="Clear" icon="pi" (click)="clear(gmap.getMap())"></button>
+		   		<button type="button" pButton label="Countries" icon="pi" (click)="loadCountries(gmap.getMap())"></button>
+		   		<button type="button" pButton label="States" icon="pi" (click)="loadStates(gmap.getMap())"></button>
+		   		<button type="button" pButton label="Earthquakes" icon="pi" (click)="loadEarthQuakes(gmap.getMap())"></button>
+		   		<p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude" ></p-dropdown>
+
+				<p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
+
+		    	<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="overlays" (onMapClick)="handleMapClick($event)"></p-gmap>
+			</p-accordionTab>
 		    <p-accordionTab header="Charts">
 		    		<p-tabView>
 				    	<p-tabPanel header="Doughnut" leftIcon="pi pi-calendar">
-		    				<p-chart type="doughnut" [data]="data"></p-chart>
+		    				<p-chart type="doughnut" [data]="data">
+
+							</p-chart>
 		    			</p-tabPanel>
+		    			<div #linechart>
+	    					<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+							    Content
+							</p-overlayPanel>
+		    			</div>
 				    	<p-tabPanel header="Line" leftIcon="pi pi-calendar">
-		    				<p-chart type="line" [data]="linedata" (onDataSelect)="selectData($event)"></p-chart>
+		    				<p-chart  type="line" [data]="linedata" (onDataSelect)="onDataSelect($event)" [options]="options">
+
+		    				</p-chart>
 		    			</p-tabPanel>
+		    			<div #barchart>
+	    					<p-overlayPanel #op1 [dismissable]="true" [showCloseIcon]="true">
+							    Content
+							</p-overlayPanel>
+		    			</div>
 				    	<p-tabPanel header="Bar" leftIcon="pi pi-calendar">
-		    				<p-chart type="bar" [data]="bardata"></p-chart>
-		    			</p-tabPanel>		    			
-				    	<p-tabPanel header="Pie" leftIcon="pi pi-calendar">
-		    				<p-chart type="pie" [data]="piedata"></p-chart>
+		    				<p-chart type="bar" [data]="bardata" (onDataSelect)="onDataSelect($event)" [options]="options">		    		
+							</p-chart>
+		    			</p-tabPanel>	
+		    			<p-tabPanel header="Horizontal Bar" leftIcon="pi pi-calendar">
+		    				<p-chart type="horizontalBar" [data]="bardata" (onDataSelect)="onDataSelect($event)" [options]="options">		    					
+							</p-chart>
+		    			</p-tabPanel>	
+		    			<p-tabPanel header="Radar" leftIcon="pi pi-calendar">
+		    				<p-chart type="radar" [data]="bardata" (onDataSelect)="onDataSelect($event)" [options]="options">		    					
+							</p-chart>
+		    			</p-tabPanel>	
+
+		    			<div #piechart>
+	    					<p-overlayPanel #op2 [dismissable]="true" [showCloseIcon]="true">
+							    Content
+							</p-overlayPanel>
+		    			</div>		    			   			
+				    	<p-tabPanel header="Pie" leftIcon="pi pi-calendar" >
+		    				<p-chart type="pie" [data]="piedata" (onDataSelect)="onDataSelect($event)" [options]="options">		    			
+							</p-chart>
 		    			</p-tabPanel>		
 		    		</p-tabView>
 		    </p-accordionTab>
 		    <p-accordionTab header="Calendar">
 		    	<p-calendar [(ngModel)]="value" [inline]="true" ></p-calendar>
 		    </p-accordionTab>
+		   	<p-accordionTab header="Gallery">
+		    	<p-galleria [images]="images" panelWidth="300" panelHeight="200" [showCaption]="true"></p-galleria>
+		    </p-accordionTab>
+
+
 		</p-accordion>
 	</p-panel>
 </div>
