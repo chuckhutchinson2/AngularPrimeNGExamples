@@ -32,7 +32,7 @@ export class QuakeComponent implements OnInit {
 
 	quakeLinedata: any;
 	options: any;
-	
+
 	map: any;
 	mapoptions: any;
 	quakeOverlays: any[];
@@ -45,6 +45,9 @@ export class QuakeComponent implements OnInit {
 	selectedPeriod: Period;
 
 	constructor(private geoService: USGSEarthquakeService) { 
+		this.map = null;
+		this.quakeOverlays = [];
+
 	    this.magnitudeData = [];
 
 	    this.magnitude = [
@@ -89,13 +92,13 @@ export class QuakeComponent implements OnInit {
             }
         };    
 
-		var lat = 36.890257;
-		var lng = 30.707417
+		var lat = 39.4624;
+		var lng = -77.2758;
 		this.position = {lat: lat, lng: lng};
 
 		this.mapoptions = {
 	        center: this.position,
-	        zoom: 12
+	        zoom: 5
       	};	        
 	}
 
@@ -103,6 +106,7 @@ export class QuakeComponent implements OnInit {
 	}
 
 	setMap(event) {
+		this.quakeOverlays = [];
 		this.map = event.map;
 
 		this.map.setCenter(this.position);
@@ -167,8 +171,15 @@ export class QuakeComponent implements OnInit {
       this.featureCollection = featureCollection;
 
       for (let feature of this.featureCollection.features) {
-          this.quakeOverlays.push(this.createMarker(feature));
+
+      	var marker = this.createMarker(feature);
+
+		this.quakeOverlays.push(marker);
+
+		this.position = marker.position;
       }
+
+      this.map.setCenter(this.position);
 
       // need to group the data into buckets from 1 to 10 and then count everything
       var rawData = featureCollection.features.map(f => f.properties.mag);
@@ -179,21 +190,24 @@ export class QuakeComponent implements OnInit {
         dataToGraph[Math.floor(m)]++;
       }
 
-      this.magnitudeData = dataToGraph;
+      this.resetQuakeChart(dataToGraph)
+    }
 
-      this.quakeLinedata = {
-            labels: this.magnitudes,
-            datasets: [
-                {
-                    label: 'Magnitude',
-                    data: this.magnitudeData,
-                    fill: false,
-                    borderColor: '#4bc0c0'
-                }
-          ]
-      };       
+    resetQuakeChart(dataToGraph) {
+		this.magnitudeData = dataToGraph;
+		this.quakeLinedata = {
+	        labels: this.magnitudes,
+	        datasets: [
+	            {
+	                label: 'Magnitude',
+	                data: this.magnitudeData,
+	                fill: false,
+	                borderColor: '#4bc0c0'
+	            }
+	          ]
+	      };       
 
-      console.log(this.magnitudeData);
+	      console.log(this.magnitudeData);
     }
 
     loadEarthQuakes(map) {
@@ -204,6 +218,8 @@ export class QuakeComponent implements OnInit {
 
     clear(map) {
         this.quakeOverlays = [];
+        this.magnitudeData = [0,0,0,0,0,0,0,0,0,0];
+        this.resetQuakeChart(this.magnitudeData)
     }
 
 	onDataSelect(event) {

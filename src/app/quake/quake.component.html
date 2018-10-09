@@ -5,6 +5,11 @@
 
 <p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
 
-<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays" (onMapClick)="handleMapClick($event)"></p-gmap>
-
-<p-chart  type="bar" [data]="quakeLinedata" (onDataSelect)="onDataSelect($event)" [options]="options"></p-chart>
+<div class="ui-g">
+	<div class="ui-g-6">
+		<p-gmap #gmap (onMapReady)="setMap($event)" [options]="mapoptions" [style]="{'width':'100%','height':'500px'}" [overlays]="quakeOverlays" (onMapClick)="handleMapClick($event)"></p-gmap>
+	</div>
+	<div class="ui-g-6">
+		<p-chart  type="bar" [data]="quakeLinedata" (onDataSelect)="onDataSelect($event)" [options]="options" [style]="{'width':'100%','height':'500px'}"></p-chart>
+	</div>
+</div>

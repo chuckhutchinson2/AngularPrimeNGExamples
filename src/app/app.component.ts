@@ -439,8 +439,8 @@ export class AppComponent implements OnInit {
       this.map = null;
       this.overlays = [];
 
-      var lat = 36.890257;
-      var lng = 30.707417
+      var lat = 39.4624;
+      var lng = -77.2758;
 
       this.mapoptions = {
         center: {lat: lat, lng: lng},
