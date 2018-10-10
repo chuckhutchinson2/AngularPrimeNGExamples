@@ -131,6 +131,16 @@ export class QuakeComponent implements OnInit {
                 text: 'Earthquakes',
                 fontSize: 16
             },
+            tooltips: {
+            callbacks: {
+                        label: function(tooltipItem) {
+                            return Number(tooltipItem.yLabel) + " ";
+                        }
+                    }
+            },
+            hover: {
+              mode: 'index'
+            },
             legend: {
                 position: 'top'
             },
