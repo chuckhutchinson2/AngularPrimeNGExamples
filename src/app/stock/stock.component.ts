@@ -24,7 +24,6 @@ export class StockComponent implements OnInit {
 
 	ngOnInit() {
 		this.stockService.stock('GE,MSFT,AAPL')
-			.pipe(map(data => Object.keys(data).map(k => data[k])))
   			.subscribe(data => this.loadStockData(data));
 
 //		this.stockService.stock('GE,MSFT,AAPL').subscribe(resp => {   		

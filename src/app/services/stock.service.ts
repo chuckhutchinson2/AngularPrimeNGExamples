@@ -7,9 +7,7 @@ import { StockData } from '../stockdata.model';
 
 @Injectable()
 export class StockService {
-
 // https://iextrading.com/developer/docs/#stocks
-
   // https://api.iextrading.com/1.0/stock/aapl/batch?types=quote,news,chart&range=1m&last=100
   // https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb&types=quote,news,chart&range=1m&last=5
 
@@ -24,7 +22,7 @@ export class StockService {
 
     console.log(url);
 
-    return this.http.get<StockData[]>(url);
+    return this.http.get<StockData[]>(url).pipe(map(data => Object.keys(data).map(k => data[k])))
   }
 
 }
