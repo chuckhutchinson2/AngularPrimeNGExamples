@@ -34,23 +34,23 @@ export class USStatesComponent implements OnInit {
 			zoom: 4
 		};
 
-		console.log('oninit done');
+		// console.log('oninit done');
 	}
 
     setMap(event) {
         this.stateMap = event.map;
-        console.log('setting map');
+        // console.log('setting map');
 
         this.stateService.load().subscribe(stateData => this.load(stateData)); 
     }
 
     load(stateData) {
-    	console.log('loading states', stateData);
+    	// console.log('loading states', stateData);
 
     	this.stateOverlays = [];
-		this.states = stateData;
+      this.states = stateData;
 
-		this.loadStates(this.stateMap);
+      this.loadStates(this.stateMap);
 	}
 
     loadStates(map) {
@@ -61,7 +61,7 @@ export class USStatesComponent implements OnInit {
 
     createPolygon(usStateData) {
 
-      console.log("state 1: ", usStateData);
+      // console.log("state 1: ", usStateData);
       return  new google.maps.Polygon({
             paths: usStateData.coordinates, 
             strokeOpacity: 0.5, 
