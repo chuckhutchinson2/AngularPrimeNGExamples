@@ -1,20 +1,24 @@
-<p>
-  stock works!
-</p>
-
-<p-table [value]="stocks">
-    <ng-template pTemplate="header">
+<p-table [columns]="cols" [value]="stocks" selectionMode="single"  (onRowSelect)="onRowSelect($event)">
+    <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Symbol</th>
             <th>Company</th>
             <th>Sector</th>
+            <th>Open</th>
+            <th>Close</th>
+            <th>High</th>
+            <th>Low</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-stock>
-        <tr>
+    <ng-template pTemplate="body" let-stock let-columns="columns" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="stock" [pSelectableRowIndex]="rowIndex">
             <td>{{stock.quote.symbol}}</td>
             <td>{{stock.quote.companyName}}</td>
             <td>{{stock.quote.sector}}</td>
+            <td>{{stock.quote.open}}</td>
+            <td>{{stock.quote.close}}</td>
+            <td>{{stock.quote.high}}</td>
+            <td>{{stock.quote.low}}</td>
         </tr>
     </ng-template>
 </p-table>

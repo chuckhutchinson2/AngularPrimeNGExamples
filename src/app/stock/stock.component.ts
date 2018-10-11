@@ -13,9 +13,27 @@ import { StockService } from "../services/stock.service";
 export class StockComponent implements OnInit {
 
 	stocks: StockData[];
+	cols: any[];
 
-	constructor(private stockService: StockService) { }
+	selectedStock: StockData;
 
+	constructor(private stockService: StockService) { 
+        this.cols = [
+            { field: 'stock.quote.symbol', header: 'symbol' },
+            { field: 'quote.companyName', header: 'companyName' },
+            { field: 'quote.sector', header: 'sector' },
+            { field: 'quote.open', header: 'Open' },
+            { field: 'quote.close', header: 'Close' },
+            { field: 'quote.high', header: 'High' },
+            { field: 'quote.low', header: 'Low' },
+        ];
+	}
+
+    onRowSelect(event) {
+    	console.log('selected row', event);
+
+    	this.selectedStock = event.data;
+    }
 
 	loadStockData(data) {
 		console.log(data);
@@ -25,10 +43,6 @@ export class StockComponent implements OnInit {
 	ngOnInit() {
 		this.stockService.stock('GE,MSFT,AAPL')
   			.subscribe(data => this.loadStockData(data));
-
-//		this.stockService.stock('GE,MSFT,AAPL').subscribe(resp => {   		
-//		Object.keys(resp).forEach(key => console.log(resp[key])
-//		});
 	}
 
 }
