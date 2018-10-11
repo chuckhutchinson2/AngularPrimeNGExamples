@@ -13,26 +13,95 @@ import { StockService } from "../services/stock.service";
 export class StockComponent implements OnInit {
 
 	stocks: StockData[];
-	cols: any[];
 
 	selectedStock: StockData;
 
+	stockLineData: any;
+	lineChartOptions: any;
+
 	constructor(private stockService: StockService) { 
-        this.cols = [
-            { field: 'stock.quote.symbol', header: 'symbol' },
-            { field: 'quote.companyName', header: 'companyName' },
-            { field: 'quote.sector', header: 'sector' },
-            { field: 'quote.open', header: 'Open' },
-            { field: 'quote.close', header: 'Close' },
-            { field: 'quote.high', header: 'High' },
-            { field: 'quote.low', header: 'Low' },
-        ];
+		this.lineChartOptions = {
+            title: {
+                display: true,
+                text: 'History',
+                fontSize: 16
+            },
+            tooltips: {
+            callbacks: {
+                        label: function(tooltipItem) {
+                            return Number(tooltipItem.yLabel) + " ";
+                        }
+                    }
+            },
+            hover: {
+              mode: 'index'
+            },
+            legend: {
+                position: 'top'
+            },
+            scales: {
+                    yAxes: [
+                        {
+                            id: 'y-axis-1',
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                }
+        };  
+
+
+        this.setStockLineData([]);
+	}
+
+	setStockLineData(data) {
+
+		this.stockLineData = {
+	            labels:data.map(c => c.date),
+	            datasets: [
+	                {
+	                    label: 'Open',
+	                    data: data.map(c => c.open),
+	                    fill: false,
+	                    backgroundColor: 'red',
+	                    borderColor: '#4bc0c0'
+	                },
+	                {
+	                    label: 'Close',
+	                    data: data.map(c => c.close),
+	                    fill: false,
+	                    backgroundColor: 'blue',
+	                    borderColor: '#4bc0c0'
+	                },
+	                {
+	                    label: 'High',
+	                    data: data.map(c => c.high),
+	                    fill: false,
+	                    backgroundColor: 'green',
+	                    borderColor: '#4bc0c0'
+	                },
+	                {
+	                    label: 'Low',
+	                    data: data.map(c => c.low),
+	                    fill: false,
+	                    backgroundColor: 'yellow',
+	                    borderColor: '#4bc0c0'
+	                }
+
+	          ]
+	      };                 
+
 	}
 
     onRowSelect(event) {
     	console.log('selected row', event);
 
     	this.selectedStock = event.data;
+    	this.setStockLineData(this.selectedStock.chart);
     }
 
 	loadStockData(data) {
