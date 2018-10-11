@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs";
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { StockData } from '../stockdata.model';
 import { StockService } from "../services/stock.service";
@@ -21,7 +23,13 @@ export class StockComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.stockService.stock('GE,MSFT,AAPL').subscribe (data => this.loadStockData(data));
+		this.stockService.stock('GE,MSFT,AAPL')
+			.pipe(map(data => Object.keys(data).map(k => data[k])))
+  			.subscribe(data => this.loadStockData(data));
+
+//		this.stockService.stock('GE,MSFT,AAPL').subscribe(resp => {   		
+//		Object.keys(resp).forEach(key => console.log(resp[key])
+//		});
 	}
 
 }

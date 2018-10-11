@@ -24,7 +24,7 @@ export class StockService {
 
     console.log(url);
 
-    return this.http.get<StockData[]>(url);     
+    return this.http.get<StockData[]>(url);
   }
 
 }
