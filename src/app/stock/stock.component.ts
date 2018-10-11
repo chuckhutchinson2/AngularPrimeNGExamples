@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -11,15 +11,17 @@ import { StockService } from "../services/stock.service";
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
-
+	@Input() watchList: String;
 	stocks: StockData[];
 
 	selectedStock: StockData;
 
 	stockLineData: any;
 	lineChartOptions: any;
+	range: String;
 
 	constructor(private stockService: StockService) { 
+		this.range = "ytd";
 		this.lineChartOptions = {
             title: {
                 display: true,
@@ -110,7 +112,7 @@ export class StockComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.stockService.stock('GE,MSFT,AAPL')
+		this.stockService.stock(this.watchList, this.range)
   			.subscribe(data => this.loadStockData(data));
 	}
 

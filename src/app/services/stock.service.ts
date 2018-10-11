@@ -12,13 +12,13 @@ export class StockService {
   // https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb&types=quote,news,chart&range=1m&last=5
 
   url = 'https://api.iextrading.com/1.0/stock/market/batch?symbols=';
-  url2 = '&types=quote,news,chart&range=1m&last=5';
+  url2 = '&types=quote,news,chart&last=5&range=';
 
 	constructor(private http:HttpClient) {
   }
 
-  stock(symbols): Observable<StockData[]> {
-    var url = this.url + symbols + this.url2;
+  stock(symbols, range): Observable<StockData[]> {
+    var url = this.url + symbols + this.url2 + range;
 
     console.log(url);
 
