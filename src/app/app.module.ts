@@ -17,6 +17,7 @@ import { GMapModule } from 'primeng/gmap';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { SpinnerModule } from 'primeng/spinner';
 
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
 import { USStateService}  from "./services/usstate.service";
@@ -57,7 +58,8 @@ import { StockMarketComponent } from './stock-market/stock-market.component';
     GMapModule,
     DropdownModule,
     TableModule,
-    InputTextModule
+    InputTextModule,
+    SpinnerModule
   ],
   providers: [
     GetIPAddressService, 

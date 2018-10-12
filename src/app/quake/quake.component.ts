@@ -46,8 +46,11 @@ export class QuakeComponent implements OnInit {
 
 	period: SelectItem[];
 	selectedPeriod: Period;
+  threshold: number;
 
 	constructor(private geoService: USGSEarthquakeService) { 
+
+    this.threshold = 4;
 		this.map = null;
 		this.quakeOverlays = [];
 
@@ -237,26 +240,28 @@ export class QuakeComponent implements OnInit {
       // console.log(featureCollection);
       this.featureCollection = featureCollection;
 
-
       var lineLabels = [];
       var lineData = [];
 
       for (let feature of this.featureCollection.features) {
 
-      	var when = moment(feature.properties.time);
-      	var whenText = when.format('llll')
+        if (feature.properties.mag >= this.threshold) {
 
-      	lineLabels.push(whenText);
-      	lineData.push ({
-				t: whenText,
-				y: feature.properties.mag
-			});
+        	var when = moment(feature.properties.time);
+        	var whenText = when.format('llll')
 
-      	var marker = this.createMarker(feature);
+        	lineLabels.push(whenText);
+        	lineData.push ({
+  				    t: whenText,
+  				    y: feature.properties.mag
+  			   });
 
-		this.quakeOverlays.push(marker);
+        	var marker = this.createMarker(feature);
 
-		this.position = marker.position;
+  		    this.quakeOverlays.push(marker);
+
+  		    this.position = marker.position;
+        }
       }
 
       this.map.setCenter(this.position);

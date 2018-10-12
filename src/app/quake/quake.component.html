@@ -4,6 +4,7 @@
 <p-dropdown [options]="magnitude" [(ngModel)]="selectedMagnitude" ></p-dropdown>
 
 <p-dropdown [options]="period" [(ngModel)]="selectedPeriod"></p-dropdown>
+<p-spinner size="10" [(ngModel)]="threshold" [min]="1" [max]="10"></p-spinner>
 
 <div class="ui-g">
 	<div class="ui-g-6">
