@@ -15,6 +15,7 @@ import { StockService } from "../services/stock.service";
 export class StockMarketComponent implements OnInit {
 
 	stocks: StockMarketData[];
+	selectedStocks: StockMarketData[];
 	cols: any[];
 
 	constructor(private stockService: StockService) { 
