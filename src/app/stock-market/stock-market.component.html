@@ -1,24 +1,22 @@
-<p-table [value]="stocks">
-    <ng-template pTemplate="header">
+
+<p-table #dt [columns]="cols" [value]="stocks"  [paginator]="true" [rows]="50">
+    <ng-template pTemplate="caption">
+    	<div class="ui-helper-clearfix">
+    		<button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:left"></button>
+    	</div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
         <tr>
-            <th>Symbol</th>
-            <th>Volume</th>
-            <th>Unadjusted Volume</th>
-            <th>Open</th>
-            <th>Close</th>
-            <th>High</th>
-            <th>Low</th>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-stock let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="stock" [pSelectableRowIndex]="rowIndex">
-            <td>{{stock.symbol}}</td>
-            <td>{{stock.volume}}</td>
-            <td>{{stock.unadjustedVolume}}</td>
-            <td>{{stock.open}}</td>
-            <td>{{stock.close}}</td>
-            <td>{{stock.high}}</td>
-            <td>{{stock.low}}</td>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
         </tr>
     </ng-template>
 </p-table>

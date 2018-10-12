@@ -15,8 +15,20 @@ import { StockService } from "../services/stock.service";
 export class StockMarketComponent implements OnInit {
 
 	stocks: StockMarketData[];
-	
-	constructor(private stockService: StockService) { }
+	cols: any[];
+
+	constructor(private stockService: StockService) { 
+		this.cols = [
+            { field: 'symbol', header: 'Symbol' },
+            { field: 'volume', header: 'Volume' },
+            { field: 'unadjustedVolume', header: 'Unadjusted Volume' },
+            { field: 'open', header: 'Open' },
+            { field: 'close', header: 'Close' },
+            { field: 'high', header: 'High' },
+            { field: 'low', header: 'Low' },
+
+        ];
+    }
 
 	loadStockData(data) {
 		console.log(data);
