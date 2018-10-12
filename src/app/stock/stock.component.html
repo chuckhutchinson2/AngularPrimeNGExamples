@@ -22,10 +22,10 @@
             <td>{{stock.quote.symbol}}</td>
             <td>{{stock.quote.companyName}}</td>
             <td>{{stock.quote.sector}}</td>
-            <td class="right">{{stock.quote.open}}</td>
-            <td class="right">{{stock.quote.close}}</td>
-            <td class="right">{{stock.quote.high}}</td>
-            <td class="right">{{stock.quote.low}}</td>
+            <td class="right">{{stock.quote.open | number}}</td>
+            <td class="right">{{stock.quote.close | number}}</td>
+            <td class="right">{{stock.quote.high | number}}</td>
+            <td class="right">{{stock.quote.low | number}}</td>
         </tr>
     </ng-template>
 </p-table>
