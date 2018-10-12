@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { StockData } from '../stockdata.model';
+import { StockMarketData } from '../stockmarketdata.model';
 
 @Injectable()
 export class StockService {
@@ -14,6 +15,8 @@ export class StockService {
   url = 'https://api.iextrading.com/1.0/stock/market/batch?symbols=';
   url2 = '&types=quote,news,chart&last=5&range=';
 
+  marketUrl = 'https://api.iextrading.com/1.0/stock/market/previous';
+
 	constructor(private http:HttpClient) {
   }
 
@@ -23,6 +26,10 @@ export class StockService {
     console.log(url);
 
     return this.http.get<StockData[]>(url).pipe(map(data => Object.keys(data).map(k => data[k])))
+  }
+
+  market() : Observable<StockMarketData[]> {
+    return this.http.get<StockMarketData[]>(this.marketUrl).pipe(map(data => Object.keys(data).map(k => data[k])))
   }
 
 }

@@ -40,12 +40,19 @@
 		<button pButton type="button" (click)="visibleSidebar5 = true" icon="pi pi-th-large"></button>
 
 		<p-accordion>
+
+			<p-accordionTab header="Stock Market - Previous Close">
+				<app-stock-market></app-stock-market>
+			</p-accordionTab>
+
 			<p-accordionTab header="Stocks"  [selected]="true">
 				<app-stock watchList='GE,MSFT,AAPL,ADP,PFE'></app-stock>
 			</p-accordionTab>
+
 			<p-accordionTab header="Quakes">
 				<app-quake></app-quake>
 			</p-accordionTab>
+			
 			<p-accordionTab header="States">
 				<app-usstates></app-usstates>
 			</p-accordionTab>

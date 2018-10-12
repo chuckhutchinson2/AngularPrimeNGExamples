@@ -1,9 +1,16 @@
 import { Component, OnInit, Input} from '@angular/core';
+import {SelectItem} from 'primeng/api';
+
 import { Observable } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { StockData } from '../stockdata.model';
 import { StockService } from "../services/stock.service";
+
+interface Range {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-stock',
@@ -11,6 +18,10 @@ import { StockService } from "../services/stock.service";
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
+
+	ranges: Range[];
+	selectedRange: Range;
+
 	@Input() watchList: String;
 	stocks: StockData[];
 
@@ -18,10 +29,20 @@ export class StockComponent implements OnInit {
 
 	stockLineData: any;
 	lineChartOptions: any;
-	range: String;
 
 	constructor(private stockService: StockService) { 
-		this.range = "ytd";
+
+		this.ranges = [
+			{name: '1m', code: '1m'},
+			{name: '3m', code: '3m'},
+			{name: '6m', code: '6m'},
+			{name: '1y', code: '1y'},
+			{name: '2y', code: '2y'},
+			{name: '5y', code: '5y'},
+			{name: 'ytd', code: 'ytd'},
+        ];
+		
+        this.selectedRange = this.ranges[0];
 		this.lineChartOptions = {
             title: {
                 display: true,
@@ -111,8 +132,16 @@ export class StockComponent implements OnInit {
 		this.stocks = data;
 	}
 
+	handleClick() {
+		this.setStockLineData([]);
+		this.stocks = [];
+		
+        this.stockService.stock(this.watchList, this.selectedRange.code)
+  			.subscribe(data => this.loadStockData(data));
+    }
+
 	ngOnInit() {
-		this.stockService.stock(this.watchList, this.range)
+		this.stockService.stock(this.watchList, this.selectedRange.code)
   			.subscribe(data => this.loadStockData(data));
 	}
 

@@ -16,6 +16,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { GMapModule } from 'primeng/gmap';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
 import { USStateService}  from "./services/usstate.service";
@@ -27,13 +28,15 @@ import { AppComponent } from './app.component';
 import { QuakeComponent } from './quake/quake.component';
 import { USStatesComponent } from './usstates/usstates.component';
 import { StockComponent } from './stock/stock.component';
+import { StockMarketComponent } from './stock-market/stock-market.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuakeComponent,
     USStatesComponent,
-    StockComponent
+    StockComponent,
+    StockMarketComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { StockComponent } from './stock/stock.component';
     GalleriaModule,
     GMapModule,
     DropdownModule,
-    TableModule
+    TableModule,
+    InputTextModule
   ],
   providers: [
     GetIPAddressService, 

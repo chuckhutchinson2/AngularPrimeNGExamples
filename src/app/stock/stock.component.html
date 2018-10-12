@@ -1,4 +1,11 @@
-<p-table [columns]="cols" [value]="stocks" selectionMode="single"  (onRowSelect)="onRowSelect($event)">
+
+<input type="text" pInputText [(ngModel)]="watchList"/>
+
+<p-dropdown [options]="ranges" [(ngModel)]="selectedRange" optionLabel="name"></p-dropdown>
+
+<button pButton type="button" label="Load" (click)="handleClick($event)"></button>
+
+<p-table [value]="stocks" selectionMode="single"  (onRowSelect)="onRowSelect($event)">
     <ng-template pTemplate="header">
         <tr>
             <th>Symbol</th>
