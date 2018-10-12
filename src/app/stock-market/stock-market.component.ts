@@ -27,7 +27,8 @@ export class StockMarketComponent implements OnInit {
             { field: 'close', header: 'Close' },
             { field: 'high', header: 'High' },
             { field: 'low', header: 'Low' },
-
+            { field: 'change', header: 'Change' },
+            { field: 'changePercent', header: 'Change Percent' },
         ];
     }
 
