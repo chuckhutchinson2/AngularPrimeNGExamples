@@ -18,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { SpinnerModule } from 'primeng/spinner';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { GetIPAddressService}  from "./services/get-ipaddress.service";
 import { USStateService}  from "./services/usstate.service";
@@ -59,7 +60,8 @@ import { StockMarketComponent } from './stock-market/stock-market.component';
     DropdownModule,
     TableModule,
     InputTextModule,
-    SpinnerModule
+    SpinnerModule,
+    ProgressSpinnerModule
   ],
   providers: [
     GetIPAddressService, 

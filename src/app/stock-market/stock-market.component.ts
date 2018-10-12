@@ -21,14 +21,14 @@ export class StockMarketComponent implements OnInit {
 	constructor(private stockService: StockService) { 
 		this.cols = [
             { field: 'symbol', header: 'Symbol' },
-            { field: 'volume', header: 'Volume' },
-            { field: 'unadjustedVolume', header: 'Unadjusted Volume' },
-            { field: 'open', header: 'Open' },
-            { field: 'close', header: 'Close' },
-            { field: 'high', header: 'High' },
-            { field: 'low', header: 'Low' },
-            { field: 'change', header: 'Change' },
-            { field: 'changePercent', header: 'Change Percent' },
+            { field: 'volume', header: 'Volume', style: 'right'  },
+            { field: 'unadjustedVolume', header: 'Unadjusted Volume', style: 'right'  },
+            { field: 'open', header: 'Open', style: 'right' },
+            { field: 'close', header: 'Close', style: 'right'  },
+            { field: 'high', header: 'High', style: 'right'  },
+            { field: 'low', header: 'Low', style: 'right'  },
+            { field: 'change', header: 'Change', style: 'right'  },
+            { field: 'changePercent', header: 'Change Percent', style: 'right'  },
         ];
     }
 
