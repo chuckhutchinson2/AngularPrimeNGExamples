@@ -207,10 +207,19 @@ export class QuakeComponent implements OnInit {
 
         var quakeFillColor = feature.properties.alert != undefined ? feature.properties.alert : '#f00';
 
-        var mag = Math.exp(parseFloat(feature.properties.mag)) * 0.1;
+        var mag = Math.exp(parseFloat(feature.properties.mag));
+
+        var scale = mag * 0.10;
+
+        console.log('scale', scale);
+
+        if (scale < 5) {
+          scale = 10;
+        } 
+
         var featureIcon = {
               path: google.maps.SymbolPath.CIRCLE,
-              scale: mag,
+              scale: scale,
               fillColor: quakeFillColor,
               fillOpacity: 0.35,
               strokeWeight: 0
@@ -245,8 +254,9 @@ export class QuakeComponent implements OnInit {
 
       for (let feature of this.featureCollection.features) {
 
-        if (feature.properties.mag >= this.threshold) {
+        console.log('mag: ', feature.properties.mag, this.threshold);
 
+        if (feature.properties.mag >= this.threshold) {
         	var when = moment(feature.properties.time);
         	var whenText = when.format('llll')
 
