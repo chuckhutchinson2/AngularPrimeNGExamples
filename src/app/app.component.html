@@ -45,12 +45,16 @@
 				<app-stock-market></app-stock-market>
 			</p-accordionTab>
 
-			<p-accordionTab header="Stocks"  [selected]="true">
+			<p-accordionTab header="Stocks" >
 				<app-stock watchList='GE,MSFT,AAPL,ADP,PFE'></app-stock>
 			</p-accordionTab>
 
 			<p-accordionTab header="Quakes">
 				<app-quake></app-quake>
+			</p-accordionTab>
+			
+			<p-accordionTab header="World"  [selected]="true">
+				<app-world></app-world>
 			</p-accordionTab>
 			
 			<p-accordionTab header="States">

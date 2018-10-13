@@ -41,8 +41,8 @@ export interface LanguageData {
 export interface RegionBlocData {
     acronym: String;
     name: String;
-    otherAcronyms: [],
-    otherNames: []
+    otherAcronyms: any[];
+    otherNames: any[];
 }
 
 export interface TranslationData {

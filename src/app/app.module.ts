@@ -32,6 +32,7 @@ import { QuakeComponent } from './quake/quake.component';
 import { USStatesComponent } from './usstates/usstates.component';
 import { StockComponent } from './stock/stock.component';
 import { StockMarketComponent } from './stock-market/stock-market.component';
+import { WorldComponent } from './world/world.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { StockMarketComponent } from './stock-market/stock-market.component';
     QuakeComponent,
     USStatesComponent,
     StockComponent,
-    StockMarketComponent
+    StockMarketComponent,
+    WorldComponent
   ],
   imports: [
     BrowserModule,

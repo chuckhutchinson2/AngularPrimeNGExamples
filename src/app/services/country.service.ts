@@ -13,7 +13,7 @@ export class CountryService {
 	constructor(private http:HttpClient) {
   	}
 
-  	load(): Observable<StockData[]> {
+  	load(): Observable<CountryData[]> {
     	return this.http.get<CountryData[]>(this.url);
   }
 }
