@@ -4,7 +4,7 @@
 		<p-gmap #worldGmap (onMapReady)="setMap($event)" [options]="mapOptions" [style]="{'width':'100%','height':'500px'}" [overlays]="overlays"></p-gmap>
 	</div>
 	<div class="ui-g-6">
-		<p-table #dt [columns]="cols" [value]="countries"  [paginator]="true" [rows]="50" selectionMode="multiple" [(selection)]="selectedCountries">
+		<p-table #dt [columns]="cols" [value]="countries"  [paginator]="true" [rows]="50" selectionMode="multiple" [(selection)]="selectedCountries" (onRowSelect)="onRowSelect($event)">
 		    <ng-template pTemplate="caption">
 		    	<div class="ui-helper-clearfix">
 		    		<button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:left; padding-right: 5px;"></button>

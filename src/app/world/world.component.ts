@@ -44,13 +44,35 @@ export class WorldComponent implements OnInit {
 		};
 	}
 
-	createCountry(country) {
+	onRowSelect(event) {
+		console.log(event);
 
+		var country = event.data;
+
+		var position = this.getPosition(country);
+
+		if (position != null) {
+			this.map.setCenter(position);
+		}
+
+	}
+
+	getPosition(country) {
 		if (country.latlng.length < 2) {
 			return null;
 		}
 
 		var position = { lat: country.latlng[0], lng: country.latlng[1] };
+
+		return position;
+	}
+
+	createCountry(country) {
+		var position = this.getPosition(country);
+
+		if (position == null) {
+			return null;
+		}
 
 		var marker = new google.maps.Marker({
 			position: position, 
