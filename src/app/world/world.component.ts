@@ -35,4 +35,69 @@ export class WorldComponent implements OnInit {
 		};
 	}
 
+	createCountry(country) {
+
+		if (country.latlng.length < 2) {
+			return null;
+		}
+
+		var position = { lat: country.latlng[0], lng: country.latlng[1] };
+
+		var marker = new google.maps.Marker({
+			position: position, 
+			title: country.name, 
+			map: this.map,
+		});
+
+		var population = (country.population != null) ? country.population.toLocaleString() : "";
+		var region = (country.region != null) ? country.region : "";
+		var subregion = (country.subregion != null) ? country.subregion : "";
+		var area = (country.area != null) ? country.area.toLocaleString() : "";
+
+		var contentString = '<div><table><tr><td>Name</td><td>' + 
+		      country.name +  
+		      '</td></tr><tr><td>Population</td><td>' + 
+		      population + 
+		      '</td></tr><tr><td>Region</td><td>' + 
+		      region +
+		      '</td></tr><tr><td>Subregion</td><td>' + 
+		      subregion +
+		      '</td></tr><tr><td>Area</td><td>' + 
+		      area  + 
+		      '</td></tr></table></div>';
+
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});  
+
+		marker.addListener('click', function() {
+			console.log('location opened');
+			this.map.setCenter(position);
+			infowindow.open(this.map, marker);
+		});
+
+		return  marker;
+	}
+
+	load(data) {
+		this.countries = data;
+		// console.log(this.countries);
+
+		var that = this;
+		this.countries.forEach(function (country) {
+		  	console.log(country);
+		  	var countryMarker = that.createCountry(country);
+
+		  	if (countryMarker != null) {
+		  		that.overlays.push(countryMarker);
+		  	}
+		}); 
+	}
+
+    setMap(event) {
+        this.map = event.map;
+        // console.log('setting map');
+
+        this.countryService.load().subscribe(data => this.load(data)); 
+    }
 }
