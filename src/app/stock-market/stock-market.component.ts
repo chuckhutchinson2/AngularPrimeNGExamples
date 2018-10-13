@@ -33,7 +33,7 @@ export class StockMarketComponent implements OnInit {
     }
 
 	loadStockData(data) {
-		console.log(data);
+		// console.log(data);
 		this.stocks = data;
 	}
 

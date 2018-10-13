@@ -42,16 +42,21 @@ export class USStatesComponent implements OnInit {
         // console.log('setting map');
 
         this.stateService.load().subscribe(stateData => this.load(stateData)); 
+        this.stateService.loadState('MD').subscribe(stateData => this.loadState(stateData)); 
     }
 
-    load(stateData) {
+    loadState(stateData) {
+      console.log(stateData);
+    }
+
+  load(stateData) {
     	// console.log('loading states', stateData);
 
     	this.stateOverlays = [];
       this.states = stateData;
 
       this.loadStates(this.stateMap);
-	}
+	 }
 
     loadStates(map) {
       for (let state of this.states) {

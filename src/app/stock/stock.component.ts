@@ -121,14 +121,14 @@ export class StockComponent implements OnInit {
 	}
 
     onRowSelect(event) {
-    	console.log('selected row', event);
+    //	console.log('selected row', event);
 
     	this.selectedStock = event.data;
     	this.setStockLineData(this.selectedStock.chart);
     }
 
 	loadStockData(data) {
-		console.log(data);
+	//	console.log(data);
 		this.stocks = data;
 	}
 
