@@ -5,6 +5,7 @@ declare var google: any; //new added line
 
 import { USStateService}  from "../services/usstate.service";
 import { USStateData, Coordinate } from '../usstatedata.model';
+import { USStateCountyData, StateCountyPoint } from '../usstatecountydata.model';
 
 @Component({
   selector: 'app-usstates',
@@ -14,9 +15,9 @@ import { USStateData, Coordinate } from '../usstatedata.model';
 export class USStatesComponent implements OnInit {
 
 	states: USStateData[];
-  	stateMapOptions: any;
-  	stateMap: any;
-  	stateOverlays: any[];
+	stateMapOptions: any;
+	stateMap: any;
+	stateOverlays: any[];
 
 	constructor(private stateService: USStateService) { }
 
@@ -42,12 +43,34 @@ export class USStatesComponent implements OnInit {
         // console.log('setting map');
 
         this.stateService.load().subscribe(stateData => this.load(stateData)); 
-        this.stateService.loadState('MD').subscribe(stateData => this.loadState(stateData)); 
     }
 
     loadState(stateData) {
       console.log(stateData);
+
+      for (var i = 0; i < stateData.length; i++) {
+        this.stateOverlays.push(this.createCountyData(stateData[i]));
+      }
     }
+
+    createCountyData(countyData) {
+      var polygon = new google.maps.Polygon({
+            paths: countyData.geometry, 
+            strokeOpacity: 0.5, 
+            strokeWeight: 1,
+            // fillColor: usStateData.color, 
+            fillOpacity: 0.35,
+            map: this.stateMap
+          });
+
+      return polygon;
+    }
+
+  showCounties(map) {
+      for (let state of this.states) {
+          this.stateService.loadState(state.code).subscribe(stateData => this.loadState(stateData)); 
+      }  
+  }
 
   load(stateData) {
     	// console.log('loading states', stateData);
@@ -67,7 +90,7 @@ export class USStatesComponent implements OnInit {
     createPolygon(usStateData) {
 
       // console.log("state 1: ", usStateData);
-      return  new google.maps.Polygon({
+      var polygon = new google.maps.Polygon({
             paths: usStateData.coordinates, 
             strokeOpacity: 0.5, 
             strokeWeight: 1,
@@ -75,5 +98,11 @@ export class USStatesComponent implements OnInit {
             fillOpacity: 0.35,
             map: this.stateMap
           });
+
+    polygon.addListener('click', function() {
+        console.log('location opened', usStateData);
+    });
+
+      return polygon;
     }
 }

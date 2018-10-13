@@ -3,7 +3,7 @@ export interface USStateCountyData {
     StateCounty: String;
     stateabbr: String;
     StateAbbr: String;
-    geometry: String;
+    geometry: StateCountyPoint[];
     value: number;
     GEO_ID: String;
     GEO_ID2: number;
@@ -13,3 +13,8 @@ export interface USStateCountyData {
     FIPSformula: number;
     Haserror: number;
   };
+
+export interface StateCountyPoint {
+    lat: number;
+    lng: number;
+}

@@ -1,1 +1,4 @@
-	<p-gmap #usStateGmap (onMapReady)="setMap($event)" [options]="stateMapOptions" [style]="{'width':'100%','height':'500px'}" [overlays]="stateOverlays"></p-gmap>
+
+<button type="button" pButton label="Show Counties" icon="pi" (click)="showCounties(usStateGmap.getMap())"></button>
+
+<p-gmap #usStateGmap (onMapReady)="setMap($event)" [options]="stateMapOptions" [style]="{'width':'100%','height':'500px'}" [overlays]="stateOverlays"></p-gmap>

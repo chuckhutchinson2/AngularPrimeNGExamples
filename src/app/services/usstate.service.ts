@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { USStateData, Coordinate } from '../usstatedata.model';
-import { USStateCountyData } from '../usstatecountydata.model';
+import { USStateCountyData, StateCountyPoint } from '../usstatecountydata.model';
 
 @Injectable()
 export class USStateService {
@@ -44,8 +44,8 @@ export class USStateService {
 
 	    		if (coordinate.length == 2) {
 	    			var point = {
-	    				lat: coordinate[1],
-	    				lng: coordinate[0]
+	    				lat: Number(coordinate[1]),
+	    				lng: Number(coordinate[0])
 	    			};
 
 	    			geometry.push(point);
