@@ -25,6 +25,7 @@ import { USStateService}  from "./services/usstate.service";
 import { USGSEarthquakeService } from "./services/usgsearthquake.service";
 import { WeatherService } from "./services/weather.service";
 import { StockService } from "./services/stock.service";
+import { CountryService } from './services/country.service';
 
 import { AppComponent } from './app.component';
 import { QuakeComponent } from './quake/quake.component';
@@ -66,6 +67,7 @@ import { StockMarketComponent } from './stock-market/stock-market.component';
   providers: [
     GetIPAddressService, 
     USStateService,
+    CountryService,
     USGSEarthquakeService,
     WeatherService,
     StockService,
