@@ -17,8 +17,17 @@ export class WorldComponent implements OnInit {
 	mapOptions: any;
 	map: any;
 	overlays: any[];
+	cols: any[];
 
-	constructor(private countryService: CountryService) { }
+	constructor(private countryService: CountryService) { 
+		this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'population', header: 'Population', style: 'right'  },
+            { field: 'region', header: 'Region', style: 'right'  },
+            { field: 'subregion', header: 'Subregion', style: 'right' },
+            { field: 'area', header: 'Area', style: 'right'  },
+        ];
+	}
 
 	ngOnInit() {
 		this.map = null;
